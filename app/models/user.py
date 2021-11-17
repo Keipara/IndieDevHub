@@ -10,6 +10,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    icon = db.Column(db.String(2000), nullable=True, default='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
+
+    projects = db.relationship("Project", back_populates="user", cascade="all, delete")
+    roles = db.relationship("Role", back_populates="user", cascade="all, delete")
 
     @property
     def password(self):
@@ -26,5 +30,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'icon': self.icon,
         }
