@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/users/UsersList';
 import User from './components/users/User';
 import { authenticate } from './store/session';
+import MainContent from './components/mainContent/mainContent';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -28,20 +29,17 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+      <Route path='/' exact={true} >
+          <h1>IndieDevHub Splash Page</h1>
+      </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>IndieDevHub Home Page</h1>
+        <Route path='/projects' exact={true}>
+          <MainContent/>
         </Route>
       </Switch>
     </BrowserRouter>
