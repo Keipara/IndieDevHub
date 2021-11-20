@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-// import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { loadProjects } from '../../store/project';
 // import ProtectedRoute from '../auth/ProtectedRoute';
+import './projectContainer.css'
 
 function ProjectsContainer() {
 
@@ -88,7 +89,9 @@ function ProjectsContainer() {
                                         width="42"
                                         height="42"
                                     ></img>
-                                    <div>{project?.name}</div>
+                                    <NavLink to={`/projects/${project?.id}`}>
+                                        <div>{project?.name}</div>
+                                    </NavLink>
                                     <div>{project?.deadline}</div>
                                 </div>
                                 <div className="project-middle">{project?.project_description}</div>

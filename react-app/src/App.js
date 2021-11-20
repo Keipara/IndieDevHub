@@ -4,11 +4,9 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/users/UsersList';
-import User from './components/users/User';
 import { authenticate } from './store/session';
 import MainContent from './components/mainContent/mainContent';
+import CreateProject from './components/createProject/createProject';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,6 +35,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/projects/new' exact={true}>
+          <CreateProject/>
         </Route>
         <Route path='/projects' exact={true}>
           <MainContent/>

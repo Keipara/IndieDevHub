@@ -1,11 +1,14 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required
 from app.models import db, Project
 from app.forms import NewProjectForm
 from app.forms.update_project import UpdateProjectForm
 from .auth_routes import validation_errors_to_error_messages
+import flask
 
 project_routes = Blueprint('projects', __name__)
+
+app = flask.Flask(__name__)
 
 #GET all projects
 @project_routes.route('/')
