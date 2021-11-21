@@ -26,8 +26,20 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const demoLogin = async (e) => {
+
+    const demoEmail = 'demo@aa.io';
+    const demoPassword = 'password'
+
+    setEmail(demoEmail)
+    setPassword(demoPassword)
+
+    await dispatch(login('demo@aa.io', 'password'));
+
+  };
+
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/projects' />;
   }
 
   return (
@@ -57,6 +69,7 @@ const LoginForm = () => {
           onChange={updatePassword}
         />
         <button type='submit'>Login</button>
+        <button id="demoLoginButton" className="formButton" onClick={demoLogin}>Demo Login</button>
       </div>
     </form>
   );
