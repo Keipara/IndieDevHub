@@ -3,21 +3,18 @@ import React, { useState} from 'react';
 import { useDispatch } from "react-redux";
 import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
+import Calendar from 'react-calendar';
+import './createProject.css'
 
 
 function CreateProject() {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.session.user?.id);
-
-    // const history = useHistory();
-    // const params = useParams()
-
-    //state
     const [name, setName] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [ownerDescription, setOwnerDescription] = useState("")
-    const [deadline, setDeadline] = useState("")
-    const [genres, setGenres] = useState("")
+    const [deadline, setDeadline] = useState()
+    const [genres, setGenres] = useState("Other")
     const [image, setImage] = useState("")
 
     const projectSubmit = async (e) => {
@@ -62,24 +59,31 @@ function CreateProject() {
                         placeholder={"Describe yourself"}
                         required
                     />
-                    <input
-                        className=""
-                        type=""
+                    <div className="calendar">
+                    <Calendar
+                        onChange={setDeadline}
                         value={deadline}
-                        onChange={(e) => setDeadline(e.target.value)}
-                        maxLength={69}
-                        placeholder={"When does this listing end"}
-                        required
                     />
-                    <input
-                        className=""
-                        type=""
-                        value={genres}
+                    </div>
+                    <div className="cs-input-field">
+                        <select
+                        name="type"
+                        id=""
                         onChange={(e) => setGenres(e.target.value)}
-                        maxLength={200}
-                        placeholder={"What are your project's genres"}
-                        required
-                    />
+                        value={genres}
+
+                        >
+                        <option value="Other">Other</option>
+                        <option value="RPG">RPG</option>
+                        <option value="Visual Novel">Visual Novel</option>
+                        <option value="Puzzle">Puzzle</option>
+                        <option value="Action">Action</option>
+                        <option value="Card game">Card game</option>
+                        <option value="Multiplayer">Multiplayer</option>
+                        <option value="2D">2D</option>
+                        <option value="3D">3D</option>
+                        </select>
+                    </div>
                     <input
                         className=""
                         type=""
