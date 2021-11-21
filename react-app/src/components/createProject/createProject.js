@@ -2,10 +2,13 @@ import React, { useState} from 'react';
 // import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProject } from '../../store/project';
+import { useSelector } from 'react-redux';
 
 
 function CreateProject() {
     const dispatch = useDispatch();
+    const userId = useSelector(state => state.session.user?.id);
+
     // const history = useHistory();
     // const params = useParams()
 
@@ -20,7 +23,7 @@ function CreateProject() {
     const projectSubmit = async (e) => {
         e.preventDefault();
 
-        await dispatch(createProject(name, projectDescription, ownerDescription, deadline, genres, image))
+        await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image))
 
     }
 
@@ -28,7 +31,8 @@ function CreateProject() {
         <div>
             <div>Create Project</div>
             <div>
-                <form onSubmit={projectSubmit}
+                <form
+                onSubmit={projectSubmit}
                 autoComplete="off"
                 className="project-form">
                     <input
@@ -83,7 +87,6 @@ function CreateProject() {
                         onChange={(e) => setImage(e.target.value)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
-                        required
                     />
                     <button type="submit">Submit Project</button>
                 </form>

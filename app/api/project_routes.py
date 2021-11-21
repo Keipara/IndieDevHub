@@ -5,6 +5,7 @@ from app.forms import NewProjectForm
 from app.forms.update_project import UpdateProjectForm
 from .auth_routes import validation_errors_to_error_messages
 import flask
+import datetime
 
 project_routes = Blueprint('projects', __name__)
 
@@ -24,23 +25,28 @@ def single_project(id):
     return projects.to_dict()
 
 #POST project
-@project_routes.route('/', methods=['POST'])
-@login_required
+@project_routes.route('/new', methods=['POST'])
 def post_channel():
+    print("post function")
     form = NewProjectForm()
+    print(form)
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("data")
     if form.validate_on_submit():
+        print('validate')
         project = Project(
             name=form.data['name'],
+            user_id=form.data['user_id'],
             project_description=form.data['project_description'],
             owner_description=form.data['owner_description'],
+            created_at=datetime.datetime.today(),
             deadline=form.data['deadline'],
             genres=form.data['genres'],
             image=form.image['image'])
         db.session.add(project)
         db.session.commit()
         return project.to_dict()
-
+    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 #PATCH project
