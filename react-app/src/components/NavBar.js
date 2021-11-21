@@ -1,9 +1,11 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  const [showCreateProject, setShowCreateProject] = useState(false)
+
   return (
     <nav>
       <ul>
@@ -23,8 +25,13 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
+          <NavLink to='/projects' exact={true} activeClassName='active'>
+            Open Projects
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/projects/new' exact={true} className="create-project-link">
+            Create Project
           </NavLink>
         </li>
         <li>
