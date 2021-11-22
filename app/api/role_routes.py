@@ -16,7 +16,7 @@ def all_roles():
     return {'roles': [role.to_dict() for role in roles]}
 
 #POST role
-@role_routes.route('/', methods=['POST'])
+@role_routes.route('/new', methods=['POST'])
 @login_required
 def post_role():
     form = NewRoleForm()

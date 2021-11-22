@@ -49,25 +49,7 @@ function ProjectsContainer() {
                 <div className="projects-container">
 
                     {projects?.map((project) => {
-                        // if (userId === project?.user_id) {
-                        // return (
-                        //     <div className="project-owner" key={project?.id}>
-                        //     <img
-                        //         src={project?.user?.icon}
-                        //         className="temp"
-                        //         alt="temp-icon"
-                        //         width="42"
-                        //         height="42"
-                        //     ></img>
-                        //     <EditableMessage
-                        //         userId={message?.user_id}
-                        //         channelId={message?.channel_id}
-                        //         message={message}
-                        //         key={`editableMessage_${message?.id}`}
-                        //     />
-                        //     </div>
-                        // );
-                        // } else {
+                    
                         return (
                             <div className="individual-project" key={project?.id}>
                                 <div className="project-top">
@@ -82,7 +64,7 @@ function ProjectsContainer() {
                                     <NavLink to={`/projects/${project?.id}`} exact>
                                         <div>{project?.name}</div>
                                     </NavLink>
-                                    <div>{project?.deadline}</div>
+                                    <div>{project?.deadline.slice(0, 16)}</div>
                                 </div>
                                 <div className="project-middle">{project?.project_description}</div>
                                 <div className="project-bottom">
