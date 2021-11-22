@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-// import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import './createProject.css'
 
 function CreateProject() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const userId = useSelector(state => state.session.user?.id);
     const [name, setName] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
@@ -20,7 +21,11 @@ function CreateProject() {
     const projectSubmit = async (e) => {
         e.preventDefault();
 
-        await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image))
+        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image));
+        if(newProject) {
+           history.push('/projects')
+         }
+
 
     }
 
@@ -67,21 +72,17 @@ function CreateProject() {
                     </div>
                     <div className="cs-input-field">
                         <select
-                        name="type"
-                        id=""
+                        multiple
+                        name="genres"
+                        id="genres"
                         onChange={(e) => setGenres(e.target.value)}
-                        value={genres}
-
+                        value={[genres]}
                         >
-                        <option value="Other">Other</option>
-                        <option value="RPG">RPG</option>
-                        <option value="Visual Novel">Visual Novel</option>
-                        <option value="Puzzle">Puzzle</option>
-                        <option value="Action">Action</option>
-                        <option value="Card game">Card game</option>
-                        <option value="Multiplayer">Multiplayer</option>
-                        <option value="2D">2D</option>
-                        <option value="3D">3D</option>
+                            <option value="Other">Other</option>
+                            <option value="Unity">Unity</option>
+                            <option value="Unreal">Unreal</option>
+                            <option value="Godot">Godot</option>
+                            <option value="Ren'Py">Ren'Py</option>
                         </select>
                     </div>
                     <input

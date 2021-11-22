@@ -27,5 +27,6 @@ class Project(db.Model):
             'created_at': self.created_at,
             'deadline': self.deadline,
             'genres': self.genres,
-            'image': self.image
+            'image': self.image,
+            'user': self.user.to_dict()
         }

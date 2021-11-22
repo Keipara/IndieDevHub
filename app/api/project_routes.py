@@ -18,20 +18,19 @@ def all_projects():
     projects = [project.to_dict() for project in allProjects]
     return {'projects': projects}
 
-#GET single project
-@project_routes.route('/<int:id>')
-def single_project(id):
-    projects = Project.query.get(id)
-    return projects.to_dict()
+# #GET single project
+# @project_routes.route('/<int:id>')
+# def single_project(id):
+#     projects = Project.query.get(id)
+#     return projects.to_dict()
 
 #POST project
 @project_routes.route('/new', methods=['POST'])
-def post_channel():
-    print("post function")
+def post_project():
     form = NewProjectForm()
-    print(form)
+    body = request.json
+    print(body)
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("data")
     if form.validate_on_submit():
         print('validate')
         project = Project(
@@ -40,9 +39,11 @@ def post_channel():
             project_description=form.data['project_description'],
             owner_description=form.data['owner_description'],
             created_at=datetime.datetime.today(),
-            deadline=form.data['deadline'],
+            deadline=body['deadline'],
             genres=form.data['genres'],
-            image=form.image['image'])
+            image=form.data['image'],
+            )
+        print(project)
         db.session.add(project)
         db.session.commit()
         return project.to_dict()

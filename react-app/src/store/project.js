@@ -1,10 +1,18 @@
 const LOAD = 'projects/LOAD_PROJECTS';
+// const ONE_PROJECT = "servers/ONE_PROJECT";
 const ADD_PROJECT = "servers/ADD_PROJECT"
+
 
 const getProjects = projects => ({
     type: LOAD,
     projects,
 })
+
+// const singleProject = projects => ({
+//   type: ONE_PROJECT,
+//   payload: projects,
+// });
+
 
 const add_project = (projects) => ({
     type: ADD_PROJECT,
@@ -12,7 +20,7 @@ const add_project = (projects) => ({
   });
 
 export const loadProjects = () => async (dispatch) => {
-    const response = await fetch(`api/projects/`);
+    const response = await fetch(`/api/projects/`);
 
     if (response.ok) {
         const projects = await response.json();
@@ -20,23 +28,15 @@ export const loadProjects = () => async (dispatch) => {
     }
 }
 
-export const loadSingleProjects = () => async (dispatch) => {
-    const response = await fetch(`api/projects/`);
+// export const loadSingleProjects = (id) => async (dispatch) => {
+//     const response = await fetch(`api/projects/${id}`);
 
-    if (response.ok) {
-        const projects = await response.json();
-        dispatch(getProjects(projects))
-    }
-}
-
+//     if (response.ok) {
+//         const projects = await response.json();
+//         dispatch(singleProject(projects))
+//     }
+// }
 export const createProject = (user_id, name, project_description, owner_description, deadline, genres, image) => async (dispatch) => {
-    console.log(user_id)
-    console.log(name)
-    console.log(project_description)
-    console.log(owner_description)
-    console.log(deadline)
-    console.log(genres)
-    console.log(image)
     const response = await fetch(`/api/projects/new`, {
         method: "POST",
         headers: {
@@ -76,10 +76,17 @@ const projectsReducer = (state = initialState, action) => {
                 allProjects[project.id] = project;
             }
             return allProjects
+        // case ONE_PROJECT:
+        //     const oneProject = {};
+
+        //     for (let project of action.projects.projects) {
+        //         oneProject[project.id] = project;
+        //     }
+        //     return oneProject
         case ADD_PROJECT:
             return {
                 ...state,
-                [action.project.id]: action.project,
+                [action.projects.id]: action.projects,
             }
 
         default:
