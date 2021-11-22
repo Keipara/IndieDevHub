@@ -23,10 +23,8 @@ def all_projects():
 def post_project():
     form = NewProjectForm()
     body = request.json
-    print(body)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print('validate')
         project = Project(
             name=form.data['name'],
             user_id=form.data['user_id'],
@@ -37,11 +35,9 @@ def post_project():
             genres=form.data['genres'],
             image=form.data['image'],
             )
-        print(project)
         db.session.add(project)
         db.session.commit()
         return project.to_dict()
-    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 #PATCH project
