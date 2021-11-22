@@ -2,23 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink} from "react-router-dom";
 import { loadProjects } from '../../store/project';
-// import ProtectedRoute from '../auth/ProtectedRoute';
 import './projectContainer.css'
 
 function ProjectsContainer() {
 
-    //react setup
     const dispatch = useDispatch();
-    // const history = useHistory();
-    // const params = useParams()
-
-    //state
-    // const [isLoaded, setIsLoaded] = useState(false)
-    // const [project, setProject] = useState("")
-
-    //selectors
     const projects = useSelector(state => Object.values(state.projects));
-    // const userId = useSelector(state => state.session.user?.id);
 
     //functions
     useEffect(() => {
@@ -82,14 +71,15 @@ function ProjectsContainer() {
                         return (
                             <div className="individual-project" key={project?.id}>
                                 <div className="project-top">
-                                    <img
+                                    {/* <img
                                         src={project?.image}
                                         className="project-image"
                                         alt="project-img"
                                         width="42"
                                         height="42"
-                                    ></img>
-                                    <NavLink to={`/projects/${project?.id}`}>
+                                    ></img> */}
+                                    {project?.image}
+                                    <NavLink to={`/projects/${project?.id}`} exact>
                                         <div>{project?.name}</div>
                                     </NavLink>
                                     <div>{project?.deadline}</div>

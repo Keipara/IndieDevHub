@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import { authenticate } from './store/session';
 import MainContent from './components/mainContent/mainContent';
 import CreateProject from './components/createProject/createProject';
+import ProjectsPage from './components/projectPage/projectPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,8 +40,11 @@ function App() {
         <Route path='/projects/new' exact={true}>
           <CreateProject/>
         </Route>
-        <Route path='/projects' exact={true}>
+        <Route path={['/projects']} exact={true}>
           <MainContent/>
+        </Route>
+        <Route path={'/projects/:id'} exact={true}>
+          <ProjectsPage/>
         </Route>
       </Switch>
     </BrowserRouter>
