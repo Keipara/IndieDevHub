@@ -36,7 +36,7 @@ export const loadProjects = () => async (dispatch) => {
 //         dispatch(singleProject(projects))
 //     }
 // }
-export const createProject = (user_id, name, project_description, owner_description, deadline, genres, image) => async (dispatch) => {
+export const createProject = (user_id, name, project_description, owner_description, deadline, genres, image, array) => async (dispatch) => {
     const response = await fetch(`/api/projects/new`, {
         method: "POST",
         headers: {
@@ -49,7 +49,8 @@ export const createProject = (user_id, name, project_description, owner_descript
             owner_description,
             deadline,
             genres,
-            image
+            image,
+            array
         }),
       });
       if (response.ok) {

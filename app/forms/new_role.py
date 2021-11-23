@@ -7,6 +7,6 @@ quantity = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+']
 
 class NewRoleForm(FlaskForm):
     custom_name = StringField("custom_name", validators=[DataRequired()])
-    type = SelectField("genre", choices=type)
-    quantity = SelectField("genre", choices=quantity)
+    type = SelectField("type", choices=type)
+    quantity = SelectField("quantity", choices=quantity)
     description = StringField("description")

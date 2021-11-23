@@ -21,7 +21,7 @@ export const loadRoles = () => async (dispatch) => {
     }
 }
 
-export const createRoles = (user_id, project_id, custom_name, type, quantity, description) => async (dispatch) => {
+export const createRoles = (user_id, array) => async (dispatch) => {
     const response = await fetch(`/api/roles/new`, {
         method: "POST",
         headers: {
@@ -29,11 +29,7 @@ export const createRoles = (user_id, project_id, custom_name, type, quantity, de
         },
         body: JSON.stringify({
             user_id,
-            project_id,
-            custom_name,
-            type,
-            quantity,
-            description
+            array
         }),
       });
       if (response.ok) {

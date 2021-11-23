@@ -5,7 +5,6 @@ import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
 import './createProject.css'
-import { createRoles } from '../../store/role';
 
 
 function CreateProject() {
@@ -15,7 +14,7 @@ function CreateProject() {
     const userId = useSelector(state => state.session.user?.id);
 
     //form
-    const [formValues, setFormValues] = useState([{ test: ""}])
+    const [formValues, setFormValues] = useState([{}])
 
     //projects
     const [name, setName] = useState("")
@@ -26,29 +25,42 @@ function CreateProject() {
     const [image, setImage] = useState("")
 
     //roles
-    const [customName, setCustomName] = useState("")
-    const [type, setType] = useState()
-    const [quantity, setQuantity] = useState("1")
-    const [description, setDescription] = useState("")
+    // const [customName, setCustomName] = useState("")
+    // const [type, setType] = useState()
+    // const [quantity, setQuantity] = useState("1")
+    // const [description, setDescription] = useState("")
 
     //functions
+    // const roleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     const newRole = await dispatch(createRoles(userId, customName, type, quantity, description));
+    //     if(newRole) {
+    //        history.push('/projects')
+    //      }
+    // }
+    // let handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     const newRole = await dispatch(createRoles(userId, JSON.stringify(formValues)));
+    //     if(newRole) {
+    //         history.push('/projects')
+    //     }
+    //     alert(JSON.stringify(formValues));
+    // }
+    // let submitForms = () => {
+    //     document.getElementById("projectForm").submit();
+    //     document.getElementById("roleForm").submit();
+    // }
+
     const projectSubmit = async (e) => {
         e.preventDefault();
 
-        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image));
+        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image, JSON.stringify(formValues)));
         if(newProject) {
            history.push('/projects')
          }
     }
 
-    const roleSubmit = async (e) => {
-        e.preventDefault();
-
-        const newRole = await dispatch(createRoles(userId, customName, type, quantity, description));
-        if(newRole) {
-           history.push('/projects')
-         }
-    }
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -57,7 +69,7 @@ function CreateProject() {
     }
 
     let addFormFields = () => {
-        setFormValues([...formValues, { name: "", email: "" }])
+        setFormValues([...formValues, { customName: "", Type: "Producer", quantity: "1", description: ""}])
     }
 
     let removeFormFields = (i) => {
@@ -66,16 +78,12 @@ function CreateProject() {
         setFormValues(newFormValues)
     }
 
-    let handleSubmit = (event) => {
-        event.preventDefault();
-        alert(JSON.stringify(formValues));
-    }
-
     return (
         <div>
             <div>Create Project</div>
             <div>
                 <form
+                id="projectForm"
                 onSubmit={projectSubmit}
                 autoComplete="off"
                 className="project-form">
@@ -114,11 +122,10 @@ function CreateProject() {
                     </div>
                     <div className="cs-input-field">
                         <select
-                        multiple
                         name="genres"
                         id="genres"
                         onChange={(e) => setGenres(e.target.value)}
-                        value={[genres]}
+                        value={genres}
                         >
                             <option value="Other">Other</option>
                             <option value="Unity">Unity</option>
@@ -136,25 +143,45 @@ function CreateProject() {
                         placeholder={"An image that represents your game"}
                     />
                     <div>
-                    <form  onSubmit={handleSubmit}>
-                        {formValues.map((element, index) => (
-                            <div className="form-inline" key={index}>
-                                <label>Name</label>
-                                <input type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
-                                <label>Email</label>
-                                <input type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
-                                {index ?
-                                    <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
-                                    : null}
-                            </div>
-                        ))}
-                        <div className="button-section">
-                            <button className="button add" type="button" onClick={() => addFormFields()}>Add</button>
-                            <button className="button submit" type="submit">Submit</button>
-                        </div>
-                    </form>
                     </div>
-                    <button type="submit">Submit Project</button>
+                    {formValues.map((element, index) => (
+                        <div className="form-inline" key={index}>
+                            <label>Custom Name</label>
+                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} />
+                            <label>Type</label>
+                            <select type="text" name="type" value={element.type || "Producer"} onChange={e => handleChange(index, e)}>
+                                <option value="Producer">Producer</option>
+                                <option value="Programmer">Programmer</option>
+                                <option value="Designer">Designer</option>
+                                <option value="Writer">Writer</option>
+                                <option value="Artist">Artist</option>
+                                <option value="Audio Technician">Audio Technician</option>
+                            </select>
+                            <label>Quantity</label>
+                            <select type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                            <label>Description</label>
+                            <input type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
+                            {index ?
+                                <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
+                                : null}
+                        </div>
+                    ))}
+                    <div className="button-section">
+                        <div>
+                            <button className="button add" type="button" onClick={() => addFormFields()}>Add</button>
+                        </div>
+                        <button className="button submit" type="submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
