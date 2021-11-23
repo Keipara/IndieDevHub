@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required
-from app.models import db, Project
-from app.forms import NewProjectForm
+from app.models import db, Project, Role
+from app.forms import NewProjectForm, NewRoleForm
 from app.forms.update_project import UpdateProjectForm
 from .auth_routes import validation_errors_to_error_messages
 import flask
@@ -23,10 +23,13 @@ def all_projects():
 def post_project():
     form = NewProjectForm()
     body = request.json
-    print(body)
+    print("BBBBBBBBBB", body)
+    string = body['array']
+    print("SSSSSSSSSS", string)
+    array = eval(string)
+    print("RRRRRRRRRRR", array)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print('validate')
         project = Project(
             name=form.data['name'],
             user_id=form.data['user_id'],
@@ -37,11 +40,22 @@ def post_project():
             genres=form.data['genres'],
             image=form.data['image'],
             )
-        print(project)
         db.session.add(project)
         db.session.commit()
+
+        for ele in array:
+            print("AAAAAAAAAAAAAAA", ele)
+            role = Role(
+                user_id=form.data['user_id'],
+                project_id=project.id,
+                custom_name=ele['customName'],
+                type=ele['type'],
+                quantity=ele['quantity'],
+                description=ele['description'])
+            db.session.add(role)
+            db.session.commit()
+            
         return project.to_dict()
-    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 #PATCH project
