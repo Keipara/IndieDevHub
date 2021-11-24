@@ -27,41 +27,6 @@ def post_project():
     array = eval(string)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        project = Project.query.filter(Project.id == form.data['id']).first()
-            project.name=form.data['name'],
-            project.user_id=form.data['user_id'],
-            project.project_description=form.data['project_description'],
-            project.owner_description=form.data['owner_description'],
-            project.created_at=datetime.datetime.today(),
-            project.deadline=body['deadline'],
-            project.genres=form.data['genres'],
-            project.image=form.data['image'],
-
-        db.session.commit()
-
-        for ele in array:
-            role = Role(
-                user_id=form.data['user_id'],
-                project_id=project.id,
-                custom_name=ele['customName'],
-                type=ele['type'],
-                quantity=ele['quantity'],
-                description=ele['description'])
-            db.session.add(role)
-            db.session.commit()
-
-        return project.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-#PATCH project
-@project_routes.route('/<int:id>/edit', methods=['PATCH'])
-def post_project():
-    form = NewProjectForm()
-    body = request.json
-    string = body['array']
-    array = eval(string)
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
         project = Project(
             name=form.data['name'],
             user_id=form.data['user_id'],
@@ -85,6 +50,42 @@ def post_project():
                 description=ele['description'])
             db.session.add(role)
             db.session.commit()
+
+        return project.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#PATCH project
+@project_routes.route('/<int:id>', methods=['PATCH'])
+def post_project():
+    form = NewProjectForm()
+    body = request.json
+    string = body['array']
+    array = eval(string)
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        project = Project.query.filter(Project.id == form.data['id']).first()
+        project.name=form.data['name'],
+        project.user_id=form.data['user_id'],
+        project.project_description=form.data['project_description'],
+        project.owner_description=form.data['owner_description'],
+        project.created_at=datetime.datetime.today(),
+        project.deadline=body['deadline'],
+        project.genres=form.data['genres'],
+        project.image=form.data['image'],
+
+        db.session.commit()
+
+        # for ele in array:
+        #     role = Role.query.filter(Project.id == form.data['id']).first()
+        #         user_id=form.data['user_id'],
+        #         project_id=project.id,
+        #         custom_name=ele['customName'],
+        #         type=ele['type'],
+        #         quantity=ele['quantity'],
+        #         description=ele['description'])
+        #     db.session.add(role)
+        #     db.session.commit()
 
         return project.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
