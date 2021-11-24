@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, StringField, DateTimeField, SelectField
 from wtforms.validators import DataRequired, ValidationError
 
-genre = ['Other', 'RPG', 'Visual Novel', 'Puzzle', 'Strategy', 'Action', 'Card game', 'Multiplayer', '2D', '3D']
+genre = ['Other', 'Unity', 'Unreal', 'Godot', 'Ren\'Py']
 
 class UpdateProjectForm(FlaskForm):
     id = IntegerField("id", validators=[DataRequired()])

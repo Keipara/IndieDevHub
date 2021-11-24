@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useParams} from "react-router-dom";
+import { useParams, useHistory} from "react-router-dom";
 import { loadProjects } from '../../store/project';
 import { loadRoles } from '../../store/role';
-import Calendar from 'react-calendar';
+// import Calendar from 'react-calendar';
+import { NavLink } from 'react-router-dom';
+import { deleteSingleProject } from '../../store/project';
 // import ProtectedRoute from '../auth/ProtectedRoute';
 
 function ProjectsPage() {
     //react setup
     const dispatch = useDispatch();
     const {id} = useParams()
+    const history = useHistory()
     const projects = useSelector(state => Object.values(state?.projects));
     const singleProject = projects.find(project => project?.id === parseInt(id))
     const roles = useSelector(state => Object.values(state?.roles));
@@ -23,14 +26,15 @@ function ProjectsPage() {
     const [showEdit, setShowEdit] = useState(false);
     const [showDeleteButton, setShowDeleteButton] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
+    const [showDeleteDiv, setShowDeleteDiv] = useState(false);
 
     //edit state
-    const [name, setName] = useState(singleProject?.name)
-    const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
-    const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
-    const [deadline, setDeadline] = useState(singleProject?.deadline)
-    const [genres, setGenres] = useState(singleProject?.genres)
-    const [image, setImage] = useState(singleProject?.image)
+    // const [name, setName] = useState(singleProject?.name)
+    // const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
+    // const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
+    // const [deadline, setDeadline] = useState(singleProject?.deadline)
+    // const [genres, setGenres] = useState(singleProject?.genres)
+    // const [image, setImage] = useState(singleProject?.image)
 
     //functions
     useEffect(() => {
@@ -49,14 +53,26 @@ function ProjectsPage() {
         }
     }, [projectUser?.id, singleProject?.user?.id])
 
+    const handleDelete = async (e) => {
+
+        e.preventDefault();
+
+        await dispatch(deleteSingleProject(id))
+        history.push('/projects')
+    }
+
+    const handleCancel = () => {
+        setShowDelete(false)
+    }
+
     return (
         <>
             <div className="project-page-container">
 
                 {showEditButton && showDeleteButton && (
                     <div>
-                        <button onClick={() => setShowEdit(true)}>Edit</button>
-                        <button onClick={() => setShowDelete(true)}>Delete</button>
+                        <NavLink to={`/projects/${id}/edit`}>Edit</NavLink>
+                        <div onClick={() => setShowDelete(true)}>Delete</div>
                     </div>
                 )}
 
@@ -98,8 +114,22 @@ function ProjectsPage() {
                     </div>
                 </>
                 )}
+                {showDelete && (
+                <div className="addModal" id="addServerModal">
+                    <div className="modal-container">
+                        <div className="top-part">
+                            <h3 id="deleteMessageHeader">Delete Message</h3>
+                            <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
+                        </div>
+                        <div className="bottom-part">
+                            <div id="deleteMessage" onClick={handleDelete}>Delete</div>
+                            <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
+                        </div>
+                    </div>
+                </div>
 
-                {showEdit && (
+            )}
+                {/* {showEdit && (
                     <div>
                     <form
                     // onSubmit={projectSubmit}
@@ -181,7 +211,7 @@ function ProjectsPage() {
                             </div>
                         </div>
                     )}
-                )}
+                )} */}
             </div>
         </>
     )
