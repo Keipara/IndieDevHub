@@ -8,6 +8,7 @@ import { authenticate } from './store/session';
 import MainContent from './components/mainContent/mainContent';
 import CreateProject from './components/createProject/createProject';
 import ProjectsPage from './components/projectPage/projectPage';
+import EditProject from './components/projectPage/projectEdit';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path={'/projects/:id'} exact={true}>
           <ProjectsPage/>
+        </Route>
+        <Route path={'/projects/:id/edit'} exact={true}>
+          <EditProject/>
         </Route>
       </Switch>
     </BrowserRouter>
