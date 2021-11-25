@@ -1,10 +1,13 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
 import { useParams } from 'react-router';
+import { editProject } from '../../store/project';
+import { loadProjects } from '../../store/project';
+import { loadRoles } from '../../store/role';
 
 
 function EditProject() {
@@ -18,20 +21,45 @@ function EditProject() {
     const roles = useSelector(state => Object.values(state?.roles));
     const projectRoles = roles.filter(role => role?.project_id === parseInt(id))
     const projectUser = useSelector(state => (state?.session?.user));
-    // console.log(singleProject)
+    const projectId = singleProject?.id
+    console.log(singleProject)
 
     //form
-    const [formValues, setFormValues] = useState([{}])
+    const [formValues, setFormValues] = useState(projectRoles?.map(role => ({
+        customName: role?.custom_name,
+        type: role?.type,
+        quantity: role?.quantity,
+        description: role?.description
+    })))
+
+    console.log("Form values:", formValues)
 
     //projects
-    const [name, setName] = useState(singleProject?.name)
+    const [name, setName] = useState(singleProject?.name);
     const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
     const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
-    const [deadline, setDeadline] = useState(new Date())
+    const [deadline, setDeadline] = useState(singleProject?.deadline)
     const [genres, setGenres] = useState("Other")
     const [image, setImage] = useState("")
 
-    console.log(deadline)
+    console.log(singleProject?.deadline)
+
+    useEffect(() => {
+        dispatch(loadProjects())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadRoles())
+    }, [dispatch])
+
+    const updateProject = async (e) => {
+        e?.preventDefault();
+
+        console.log(JSON.stringify(formValues))
+        await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, deadline, genres, image, JSON.stringify(formValues)))
+        // window.location.reload()
+
+    }
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -40,7 +68,7 @@ function EditProject() {
     }
 
     let addFormFields = () => {
-        setFormValues([...formValues, { customName: "", Type: "Producer", quantity: "1", description: ""}])
+        setFormValues([...formValues, { customName: "", Type: "", quantity: "", description: ""}])
     }
 
     let removeFormFields = (i) => {
@@ -56,7 +84,7 @@ function EditProject() {
             <div>
                 <form
                 id="projectForm"
-                // onSubmit={projectSubmit}
+                onSubmit={updateProject}
                 autoComplete="off"
                 className="project-form">
                     <input
@@ -87,11 +115,9 @@ function EditProject() {
                         required
                     />
                     <div className="calendar">
-                    {deadline.toString().slice(0, 16)}
+                    Deadline: {deadline?.toString()?.slice(0, 16)? deadline?.toString()?.slice(0, 16) : singleProject?.deadline.toString().slice(0, 16)}
                     <Calendar
-                        onSelect={(e) => deadline}
                         onChange={setDeadline}
-                        value={deadline.value}
                     />
                     </div>
                     <div className="cs-input-field">
@@ -117,13 +143,17 @@ function EditProject() {
                         placeholder={"An image that represents your game"}
                     />
                     <div>
-                    </div>
+
+                    <div className="roles-container">
+
+
                     {formValues.map((element, index) => (
-                        <div className="form-inline" key={index}>
+                        <div className={index} key={index}>
                             <label>Custom Name</label>
-                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} />
+                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
                             <label>Type</label>
-                            <select type="text" name="type" value={element.type || "Producer"} onChange={e => handleChange(index, e)}>
+                            <select type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
+                                <option value="">Select role</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>
                                 <option value="Designer">Designer</option>
@@ -145,16 +175,19 @@ function EditProject() {
                             </select>
                             <label>Description</label>
                             <input type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
-                            {index ?
-                                <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
-                                : null}
+                            <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
                         </div>
                     ))}
+
+                    </div>
+
+                    </div>
+
                     <div className="button-section">
                         <div>
-                            <button className="button add" type="button" onClick={() => addFormFields()}>Add</button>
+                            <button className="button-add" type="button" onClick={() => addFormFields()}>Add</button>
                         </div>
-                        <button className="button submit" type="submit">Submit</button>
+                        <button className="button-submit" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

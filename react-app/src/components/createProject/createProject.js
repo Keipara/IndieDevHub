@@ -147,9 +147,10 @@ function CreateProject() {
                     {formValues.map((element, index) => (
                         <div className="form-inline" key={index}>
                             <label>Custom Name</label>
-                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} />
+                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
                             <label>Type</label>
-                            <select type="text" name="type" value={element.type || "Producer"} onChange={e => handleChange(index, e)}>
+                            <select type="text" name="type" value={element.type || ""} defaultValue={{ label: "Type", value: 'Producer' }} onChange={e => handleChange(index, e)} required>
+                                <option value="">Please select</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>
                                 <option value="Designer">Designer</option>

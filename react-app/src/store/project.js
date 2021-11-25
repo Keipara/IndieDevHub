@@ -141,7 +141,7 @@ const projectsReducer = (state = initialState, action) => {
         case UPDATE_PROJECT:
           return {
             ...state,
-            [action.project.id]: action.project,
+            [action.project?.id]: action.project,
           }
         case DELETE_PROJECT:
             const newState = {...state}

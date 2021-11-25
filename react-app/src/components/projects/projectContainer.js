@@ -49,7 +49,7 @@ function ProjectsContainer() {
                 <div className="projects-container">
 
                     {projects?.map((project) => {
-                    
+
                         return (
                             <div className="individual-project" key={project?.id}>
                                 <div className="project-top">
