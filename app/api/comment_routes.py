@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required
 from app.forms.update_comment import UpdateCommentForm
+from app.forms.new_comment import NewCommentForm
 from app.models import db, Comment
 from app.forms import NewProjectForm, NewRoleForm
 from app.forms.update_project import UpdateProjectForm
@@ -21,32 +22,31 @@ def get_comments(projectId):
     comments = [comment.to_dict() for comment in projectComments]
     return {"comments": comments}
 
-# # Add a message to a channel
-# @project_routes.route('/<int:projectId>', methods=['POST'])
-# @login_required
-# def add_message(channel_id):
-#     form = NewMessageForm()
+# Add a comment to project
+@comment_routes.route('/<int:projectId>/comments', methods=['POST'])
+@login_required
+def add_message(projectId):
+    form = NewCommentForm()
 
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     if form.validate_on_submit():
-#         message = Channel_Message(channel_id=form.data['channel_id'],
-#             user_id=form.data['user_id'],
-#             message=form.data['message'],
-#             date=datetime.datetime.today()
-#             )
-#         db.session.add(message)
-#         db.session.commit()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        comment = Comment(project_id=form.data['project_id'],
+            user_id=form.data['user_id'],
+            message=form.data['message'],
+            )
+        db.session.add(comment)
+        db.session.commit()
 
-#         return message.to_dict()
+        return comment.to_dict()
 
-#     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-# Update a message
+# Update a comment
 @comment_routes.route('/<int:comment_id>', methods=['PATCH'])
 @login_required
 def update_comment(comment_id):
     form = UpdateCommentForm()
-    print("AAAAAAAAAAAA")
+
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         comment = Comment.query.filter(Comment.id == comment_id).first()
@@ -58,7 +58,7 @@ def update_comment(comment_id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-# Delete a message
+# Delete a comment
 @comment_routes.route('/<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_comment(comment_id):
