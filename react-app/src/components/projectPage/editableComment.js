@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import {  useDispatch } from 'react-redux';
-import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
+import { deleteSingleComment } from '../../store/comment';
+import { updateCommentMessage } from '../../store/comment';
+import { useHistory } from 'react-router';
+import { loadProjectComments } from '../../store/comment';
 
-
-function EditableMessage({userId, channelId, message}) {
+function EditableComment({userId, projectId, comment}) {
     const dispatch = useDispatch();
-    const channel_id = channelId;
-    const message_id = message.id;
+    const project_id = projectId;
+    const comment_id = comment?.id;
+    const history = useHistory()
     const user_id = userId;
-    const [messageBody, setMessageBody] = useState(message?.message);
+    const [messageBody, setMessageBody] = useState(comment?.message);
 
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false)
@@ -21,7 +24,7 @@ function EditableMessage({userId, channelId, message}) {
 
         e.preventDefault();
 
-        const data = await dispatch(deleteSingleMessage(message_id))
+        const data = await dispatch(deleteSingleComment(comment_id))
         if (data) {
         } else {
             setShowDelete(false)
@@ -31,33 +34,37 @@ function EditableMessage({userId, channelId, message}) {
     const updateMessage = async (e) => {
         e?.preventDefault();
 
-        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody))
+        await dispatch(updateCommentMessage(comment_id, project_id, user_id, messageBody))
         setShowEdit(false)
-        // window.location.reload()
+        dispatch(loadProjectComments(project_id))
+        return () => {
+            history.push(`/projects/${comment?.project_id}`)
+        }
 
     }
 
     return (
-        <div className="messageNameHolder" id="editableMessage">
+        <div className="messageNameHolder" id="editableComment">
             {!showEdit && !showDelete && (
                 <div className="owner-messages">
-                    <div className="own-msg-test"key={message?.id}>
+                    <div className="own-msg-test"key={comment?.id}>
                         <div className="text-header">
                             <div className="user-time">
-                                <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
-                                <div className="time">{message?.date.slice(0,16)}</div>
+                                <div style={{ fontWeight: 900, fontSize: 15 }}> {comment?.user?.username}</div>
                             </div>
                             <div className="editMessageIconContainer">
                                  <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
                                     <i className="fas fa-cog" id="editIcons"></i>
+                                    Edit
                                 </div>
                                 <div className="editMessageIcons" onClick={() => setShowDelete(true)}>
                                     <i className="far fa-trash-alt" id="editIcons"></i>
+                                    Delete
                                 </div>
                             </div>
                         </div>
                         <div className="message-text">
-                            {message?.message}
+                            {comment?.message}
                         </div>
                     </div>
                 </div>
@@ -65,11 +72,10 @@ function EditableMessage({userId, channelId, message}) {
             {showEdit && (
                 <div>
                     <div className="owner-messages">
-                        <div className="own-msg-test"key={message?.id}>
+                        <div className="own-msg-test"key={comment?.id}>
                             <div className="edit-column">
                                 <div className="user-time">
-                                    <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
-                                    <div className="time">{message?.date.slice(0,16)}</div>
+                                    <div style={{ fontWeight: 900, fontSize: 15 }}> {comment?.user?.username}</div>
                                 </div>
                             </div>
                                 <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
@@ -108,15 +114,14 @@ function EditableMessage({userId, channelId, message}) {
                             <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
                                 <div className="message-preview">
                                     <div className="message-top-half">
-                                        <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                        <img src={comment?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
                                     </div>
-                                    <div className="message-bottom-half">
-                                        <div className="message-header">
-                                        {message?.user?.username}
-                                        <div className="time">{message?.date.slice(0,16)}</div>
+                                    <div className="comment-bottom-half">
+                                        <div className="comment-header">
+                                        {comment?.user?.username}
                                         </div>
-                                            <div className="message-text">
-                                                {message?.message}
+                                            <div className="comment-text">
+                                                {comment?.message}
                                             </div>
                                     </div>
                                 </div>
@@ -134,4 +139,4 @@ function EditableMessage({userId, channelId, message}) {
     )
 }
 
-export default EditableMessage;
+export default EditableComment;

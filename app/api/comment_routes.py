@@ -46,11 +46,11 @@ def get_comments(projectId):
 @login_required
 def update_comment(comment_id):
     form = UpdateCommentForm()
-
+    print("AAAAAAAAAAAA")
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        comment = Comment.query.filter(Comment.id == form.data['comment_id']).first()
-        comment.comment = form.data['comment']
+        comment = Comment.query.filter(Comment.id == comment_id).first()
+        comment.message = form.data['message']
         db.session.commit()
 
         return comment.to_dict()

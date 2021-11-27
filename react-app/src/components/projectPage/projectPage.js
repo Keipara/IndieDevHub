@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { deleteSingleProject } from '../../store/project';
 import { loadProjectComments } from '../../store/comment';
 // import ProtectedRoute from '../auth/ProtectedRoute';
+import EditableComment from './editableComment';
 
 function ProjectsPage() {
     //react setup
@@ -153,12 +154,12 @@ function ProjectsPage() {
                     if (userId === comment?.user_id) {
                       return (
                         <div className="logged-user-comment" key={comment?.id}>
-                          {/* <EditableMessage
-                            userId={message?.user_id}
-                            channelId={message?.channel_id}
-                            message={message}
-                            key={`editableMessage_${message?.id}`}
-                          /> */}
+                          <EditableComment
+                            userId={comment?.user_id}
+                            projectId={comment?.project_id}
+                            comment={comment}
+                            key={`editableComment_${comment?.id}`}
+                          />
                         </div>
                       );
                     } else {
