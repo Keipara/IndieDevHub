@@ -6,35 +6,34 @@ import { loadRoles } from '../../store/role';
 // import Calendar from 'react-calendar';
 import { NavLink } from 'react-router-dom';
 import { deleteSingleProject } from '../../store/project';
+import { loadProjectComments } from '../../store/comment';
 // import ProtectedRoute from '../auth/ProtectedRoute';
 
 function ProjectsPage() {
     //react setup
     const dispatch = useDispatch();
     const {id} = useParams()
+    const projectId = parseInt(id)
     const history = useHistory()
+
+    //project redux
     const projects = useSelector(state => Object.values(state?.projects));
     const singleProject = projects.find(project => project?.id === parseInt(id))
     const roles = useSelector(state => Object.values(state?.roles));
     const projectRoles = roles.filter(role => role?.project_id === parseInt(id))
     const projectUser = useSelector(state => (state?.session?.user));
-    console.log(projectRoles)
-    // console.log(projectUser?.id)
-    // console.log(singleProject?.name)
 
+    //edit and delete
     const [showEditButton, setShowEditButton] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDeleteButton, setShowDeleteButton] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
-    const [showDeleteDiv, setShowDeleteDiv] = useState(false);
 
-    //edit state
-    // const [name, setName] = useState(singleProject?.name)
-    // const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
-    // const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
-    // const [deadline, setDeadline] = useState(singleProject?.deadline)
-    // const [genres, setGenres] = useState(singleProject?.genres)
-    // const [image, setImage] = useState(singleProject?.image)
+    //comments
+    const [comment, setComment] = useState("")
+    const comments = useSelector(state => Object.values(state.comments));
+    const userId = useSelector(state => state.session.user?.id);
+
 
     //functions
     useEffect(() => {
@@ -52,6 +51,10 @@ function ProjectsPage() {
             setShowDeleteButton(true)
         }
     }, [projectUser?.id, singleProject?.user?.id])
+
+    useEffect(() => {
+        dispatch(loadProjectComments(projectId))
+    }, [dispatch, projectId])
 
     const handleDelete = async (e) => {
 
@@ -144,6 +147,34 @@ function ProjectsPage() {
                             </div>
                         </div>
                     )})}
+            </div>
+            <div className='comments-div'>
+                {comments?.map((comment) => {
+                    if (userId === comment?.user_id) {
+                      return (
+                        <div className="logged-user-comment" key={comment?.id}>
+                          {/* <EditableMessage
+                            userId={message?.user_id}
+                            channelId={message?.channel_id}
+                            message={message}
+                            key={`editableMessage_${message?.id}`}
+                          /> */}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="individual-comment" key={comment?.id}>
+                            <div className="user-time">
+                              <div style={{ fontWeight: 900, fontSize: 17 }}>
+                                {" "}
+                                {comment?.user?.username}
+                              </div>
+                            </div>
+                            {comment?.message}
+                        </div>
+                      );
+                    }
+                })}
             </div>
         </div>
         </>

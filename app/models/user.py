@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
 
     projects = db.relationship("Project", back_populates="user", cascade="all, delete")
     roles = db.relationship("Role", back_populates="user", cascade="all, delete")
+    comments = db.relationship("Comment", back_populates="user", cascade="all, delete")
 
     @property
     def password(self):
