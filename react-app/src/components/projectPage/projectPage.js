@@ -6,7 +6,7 @@ import { loadRoles } from '../../store/role';
 // import Calendar from 'react-calendar';
 import { NavLink } from 'react-router-dom';
 import { deleteSingleProject } from '../../store/project';
-import { loadProjectComments } from '../../store/comment';
+import { addNewComment, loadProjectComments } from '../../store/comment';
 // import ProtectedRoute from '../auth/ProtectedRoute';
 import EditableComment from './editableComment';
 
@@ -56,6 +56,15 @@ function ProjectsPage() {
     useEffect(() => {
         dispatch(loadProjectComments(projectId))
     }, [dispatch, projectId])
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        // let newErrors = [];
+        await dispatch(addNewComment(projectId, userId, comment))
+        // window.scroll(0, document.querySelector(".messages-div").scrollHeight)
+        setComment("")
+
+      };
 
     const handleDelete = async (e) => {
 
@@ -176,6 +185,23 @@ function ProjectsPage() {
                       );
                     }
                 })}
+            </div>
+            <div className="addMessageContainer">
+              <form
+                onSubmit={handleSubmit}
+                autoComplete="off"
+                className="messageForm"
+              >
+                <input
+                  className="comment-input"
+                  type="text"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  maxLength={2000}
+                  required
+                />
+                <button type='submit'>Post Comment</button>
+              </form>
             </div>
         </div>
         </>
