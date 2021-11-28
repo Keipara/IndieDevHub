@@ -1,0 +1,155 @@
+* {
+    text-decoration: none;
+}
+
+a {
+    height: 100%;
+}
+
+.nav-container {
+    height: 72px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px groove rgb(178,178,178, 0.2);
+}
+
+.home-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Black Ops One', cursive;
+    font-size: 40px;
+}
+
+.ind-words {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Black Ops One', cursive;
+    font-size: 40px;
+}
+
+.indie{
+    color: rgb(100, 82, 162);
+}
+
+.game {
+    color:rgb(0, 176, 231)
+}
+
+.dev {
+    color:rgb(242, 106, 43)
+}
+
+.right-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.open-projects-div {
+    margin: 10px;
+    height: 35px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgb(119,119,119)
+}
+
+.open-projects-div:hover {
+    color: rgb(102,102,102)
+}
+
+.login-signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.login-div {
+    margin: 10px;
+    height: 35px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgb(229,229,229);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgb(51,51,51)
+}
+
+.login-div:hover {
+    border: 1px solid rgb(178,178,178)
+}
+
+.signup-div {
+    margin: 10px;
+    height: 35px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgb(138,116,185);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: white
+}
+
+.signup-div:hover{
+    background-color: rgb(124,99,176);
+}
+
+.create-logout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.create-project {
+    margin: 10px;
+    height: 35px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color:rgb(0, 176, 231)
+}
+
+.logout {
+    margin: 10px;
+    height: 35px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgb(229,229,229);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    background-color: white;
+    color: rgb(51,51,51);
+    cursor: pointer;
+
+}
+
+
+.logout:hover {
+    border: 1px solid rgb(178,178,178)
+}

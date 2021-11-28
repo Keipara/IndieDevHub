@@ -3,12 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navigation/NavBar';
 import { authenticate } from './store/session';
 import MainContent from './components/mainContent/mainContent';
 import CreateProject from './components/createProject/createProject';
 import ProjectsPage from './components/projectPage/projectPage';
 import EditProject from './components/projectPage/projectEdit';
+import Footer from './components/auth/footer/footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,6 +52,7 @@ function App() {
           <EditProject/>
         </Route>
       </Switch>
+      <Footer/>
     </BrowserRouter>
   );
 }
