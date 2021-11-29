@@ -172,8 +172,10 @@ function ProjectsPage() {
                     <div className="individual-role">
                         <div className="custom-name"> ({role?.quantity}) {role?.custom_name}</div>
                         <div className="role-and-description">
-                            <div className="role-role">
-                                {role?.type}
+                            <div className='role-container'>
+                                <div className="role-role">
+                                    {role?.type}
+                                </div>
                             </div>
                             <div className="role-description">
                                 {role?.description}
@@ -220,7 +222,7 @@ function ProjectsPage() {
                     } else {
                     return (
                         <div className="individual-comment" key={comment?.id}>
-                            <div className="user-username">
+                            <div className="comment-username">
                                 {comment?.user?.username}
                             </div>
                             <div className='comment-message'>
