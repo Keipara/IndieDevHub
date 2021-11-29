@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
-import { login } from '../../store/session';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,18 +30,6 @@ const SignUpForm = () => {
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
-  };
-
-  const demoLogin = async (e) => {
-
-    const demoEmail = 'demo@aa.io';
-    const demoPassword = 'password'
-
-    setEmail(demoEmail)
-    setPassword(demoPassword)
-
-    await dispatch(login('demo@aa.io', 'password'));
-
   };
 
   if (user) {
@@ -99,7 +86,6 @@ const SignUpForm = () => {
                 Login
               </div>
             </NavLink>
-            <button id="demoLoginButton" className="demo-button" onClick={demoLogin}>Demo Login</button>
           </div>
       </div>
     </form>

@@ -10,7 +10,7 @@ class Project(db.Model):
     owner_description = db.Column(db.String(5000), nullable=False, unique=False)
     created_at = db.Column(db.Date, nullable=False, unique=False)
     genres = db.Column(db.String(200), nullable=False, unique=False)
-    image = db.Column(db.String(1000), nullable=True, unique= False)
+    image = db.Column(db.String(1000), nullable=False, unique= False)
 
     user = db.relationship("User", back_populates="projects")
     roles = db.relationship("Role", back_populates="project", cascade='all, delete')

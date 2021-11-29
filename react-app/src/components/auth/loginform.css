@@ -115,7 +115,10 @@ h3 {
     color:rgb(0, 176, 231);
     padding-right: 10px;
     margin-left: 10px;
-    border-right: 2px solid rgb(124,99,176);
+}
+
+.signup-button:hover {
+    color: rgb(0, 0, 196);
 }
 
 .demo-button {
@@ -130,5 +133,10 @@ h3 {
     font-size: 17px;
     color:rgb(0, 176, 231);
     margin-right: 10px;
-    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 2px solid rgb(124,99,176);
+}
+
+.demo-button:hover {
+    color: rgb(0, 0, 196);
 }
