@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import './loginform.css';
+import { NavLink } from 'react-router-dom';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -44,33 +45,47 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-        <button id="demoLoginButton" className="formButton" onClick={demoLogin}>Demo Login</button>
+    <form className='login-form' onSubmit={onLogin}>
+      <div className='login-container'>
+        <div className='login-header-container'>
+          <h3 className='login-text'>Login</h3>
+        </div>
+        <div className='login-box'>
+          <div className='errors-container'>
+            {errors.map((error, ind) => (
+              <div key={ind} className='ind-error'>{error}</div>
+            ))}
+          </div>
+          <div className='email-input-container'>
+            <label htmlFor='email' className='email-text'>Email</label>
+            <input
+              className='email-input'
+              name='email'
+              type='text'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div className='password-input-container'>
+            <label htmlFor='password' className='password-text'>Password</label>
+            <input
+              className='password-input'
+              name='password'
+              type='password'
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+          <button type='submit' className='login-button'>LOGIN</button>
+          </div>
+          <div className='hyperlinks-container'>
+            <NavLink to="/sign-up">
+              <div className='signup-button'>
+                Sign up
+              </div>
+            </NavLink>
+            <button id="demoLoginButton" className="demo-button" onClick={demoLogin}>Demo Login</button>
+          </div>
       </div>
     </form>
   );
