@@ -46,26 +46,20 @@ function EditableComment({userId, projectId, comment}) {
     return (
         <div className="messageNameHolder" id="editableComment">
             {!showEdit && !showDelete && (
-                <div className="owner-messages">
-                    <div className="own-msg-test"key={comment?.id}>
-                        <div className="text-header">
-                            <div className="user-time">
-                                <div style={{ fontWeight: 900, fontSize: 15 }}> {comment?.user?.username}</div>
+                <div className="individual-comment">
+                    <div className="text-header">
+                        <div style={{ fontWeight: 900, fontSize: 15 }} className='comment-username'> {comment?.user?.username}</div>
+                        <div className="owner-comment-buttons">
+                            <div className="comment-edit" id="leftIconMessage" onClick={() => setShowEdit(true)}>
+                                Edit
                             </div>
-                            <div className="editMessageIconContainer">
-                                 <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
-                                    <i className="fas fa-cog" id="editIcons"></i>
-                                    Edit
-                                </div>
-                                <div className="editMessageIcons" onClick={() => setShowDelete(true)}>
-                                    <i className="far fa-trash-alt" id="editIcons"></i>
-                                    Delete
-                                </div>
+                            <div className="comment-delete" onClick={() => setShowDelete(true)}>
+                                Delete
                             </div>
                         </div>
-                        <div className="message-text">
-                            {comment?.message}
-                        </div>
+                    </div>
+                    <div className="comment-message">
+                        {comment?.message}
                     </div>
                 </div>
             )}
@@ -113,16 +107,13 @@ function EditableComment({userId, projectId, comment}) {
                             <h3 id="deleteMessageHeader">Delete Message</h3>
                             <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
                                 <div className="message-preview">
-                                    <div className="message-top-half">
-                                        <img src={comment?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
-                                    </div>
                                     <div className="comment-bottom-half">
                                         <div className="comment-header">
                                         {comment?.user?.username}
                                         </div>
-                                            <div className="comment-text">
-                                                {comment?.message}
-                                            </div>
+                                        <div className="comment-message">
+                                            {comment?.message}
+                                        </div>
                                     </div>
                                 </div>
                         </div>
