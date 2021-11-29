@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
-import Calendar from 'react-calendar';
 import './createProject.css'
 
 
@@ -20,47 +19,17 @@ function CreateProject() {
     const [name, setName] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [ownerDescription, setOwnerDescription] = useState("")
-    const [deadline, setDeadline] = useState()
     const [genres, setGenres] = useState("Other")
     const [image, setImage] = useState("")
-
-    //roles
-    // const [customName, setCustomName] = useState("")
-    // const [type, setType] = useState()
-    // const [quantity, setQuantity] = useState("1")
-    // const [description, setDescription] = useState("")
-
-    //functions
-    // const roleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     const newRole = await dispatch(createRoles(userId, customName, type, quantity, description));
-    //     if(newRole) {
-    //        history.push('/projects')
-    //      }
-    // }
-    // let handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const newRole = await dispatch(createRoles(userId, JSON.stringify(formValues)));
-    //     if(newRole) {
-    //         history.push('/projects')
-    //     }
-    //     alert(JSON.stringify(formValues));
-    // }
-    // let submitForms = () => {
-    //     document.getElementById("projectForm").submit();
-    //     document.getElementById("roleForm").submit();
-    // }
 
     const projectSubmit = async (e) => {
         e.preventDefault();
 
-        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, deadline, genres, image, JSON.stringify(formValues)));
+        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)));
         if(newProject) {
            history.push('/projects')
          }
     }
-
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -79,16 +48,20 @@ function CreateProject() {
     }
 
     return (
-        <div>
-            <div>Create Project</div>
-            <div>
+        <div className='create-projects-page'>
+            <div className='projects-header'>
+                <h2>Create Project</h2>
+            </div>
+            <div className=''>
                 <form
                 id="projectForm"
                 onSubmit={projectSubmit}
                 autoComplete="off"
                 className="project-form">
+                <div className='create-projects-portion'>
+                    <div className='input-header'>Project Title</div>
                     <input
-                        className="name-container"
+                        className="create-input"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -96,8 +69,9 @@ function CreateProject() {
                         placeholder={"Your Project Title"}
                         required
                     />
+                    <div className='input-header'>Project Description</div>
                     <input
-                        className=""
+                        className="create-input"
                         type=""
                         value={projectDescription}
                         onChange={(e) => setProjectDescription(e.target.value)}
@@ -105,24 +79,21 @@ function CreateProject() {
                         placeholder={"Describe your project"}
                         required
                     />
+                    <div className='input-header'>User Description</div>
                     <input
-                        className=""
+                        className="create-input"
                         type=""
                         value={ownerDescription}
                         onChange={(e) => setOwnerDescription(e.target.value)}
                         maxLength={5000}
-                        placeholder={"Describe yourself"}
+                        placeholder={"Describe yourself. Don't forget your contact method!"}
                         required
                     />
-                    <div className="calendar">
-                    <Calendar
-                        onChange={setDeadline}
-                        value={deadline}
-                    />
-                    </div>
+                    <div className='input-header'>Game Engine Preference</div>
                     <div className="cs-input-field">
                         <select
                         name="genres"
+                        className='project-select'
                         id="genres"
                         onChange={(e) => setGenres(e.target.value)}
                         value={genres}
@@ -134,22 +105,31 @@ function CreateProject() {
                             <option value="Ren'Py">Ren'Py</option>
                         </select>
                     </div>
+                    <div className='input-header'>Project Image</div>
                     <input
-                        className=""
+                        className="create-input"
                         type=""
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
+                        required
                     />
                     <div>
                     </div>
+                    </div>
                     {formValues.map((element, index) => (
-                        <div className="form-inline" key={index}>
-                            <label>Custom Name</label>
-                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
-                            <label>Type</label>
-                            <select type="text" name="type" value={element.type || ""} defaultValue={{ label: "Type", value: 'Producer' }} onChange={e => handleChange(index, e)} required>
+                        <div className="individual-role" key={index}>
+                            <label className='input-header'>Custom Name</label>
+                            <input
+                            type="text"
+                            className="create-input"
+                            name="customName"
+                            value={element.customName || ""}
+                            onChange={e => handleChange(index, e)}
+                            required/>
+                            <label className='input-header'>Type</label>
+                            <select className='project-select' type="text" name="type" value={element.type || ""} defaultValue={{ label: "Type", value: 'Producer' }} onChange={e => handleChange(index, e)} required>
                                 <option value="">Please select</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>
@@ -158,8 +138,8 @@ function CreateProject() {
                                 <option value="Artist">Artist</option>
                                 <option value="Audio Technician">Audio Technician</option>
                             </select>
-                            <label>Quantity</label>
-                            <select type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
+                            <label className='input-header'>Quantity</label>
+                            <select className='project-select' type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -168,20 +148,28 @@ function CreateProject() {
                                 <option value="6">6</option>
                                 <option value="7">7</option>
                                 <option value="8">8</option>
-                                <option value="9">9</option>
+                                <option value="9">9+</option>
                             </select>
-                            <label>Description</label>
-                            <input type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
+                            <label className='input-header'>Description</label>
+                            <input
+                            type="text"
+                            className="create-input"
+                            name="description"
+                            value={element.description || ""}
+                            onChange={e => handleChange(index, e)}
+                            required/>
                             {index ?
-                                <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
+                                <button type="button"  className="role-button" onClick={() => removeFormFields(index)}>Remove Role</button>
                                 : null}
                         </div>
                     ))}
                     <div className="button-section">
                         <div>
-                            <button className="button add" type="button" onClick={() => addFormFields()}>Add</button>
+                            <button className="role-button" type="button" onClick={() => addFormFields()}>Add Role</button>
                         </div>
-                        <button className="button submit" type="submit">Submit</button>
+                        <div className='project-submit-container'>
+                            <button className="project-submit" type="submit">PUBLISH PROJECT</button>
+                        </div>
                     </div>
                 </form>
             </div>
