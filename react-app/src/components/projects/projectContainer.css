@@ -2,12 +2,114 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(242,243,247);
+    height: calc(100vh - 167px);
+    overflow-y: hidden;
 }
 
 .filters-projects-container {
-    width: 100%;
+    width: 97vw;
+    height: calc(100%);
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.projects-header {
+    font-family: monospace;
+    font-weight: 100;
+    font-size: 25px;
+    color: rgb(51,51,51);
+    border-bottom: 2px solid rgb(124,99,176);
+}
+
+.projects-container {
+    height: calc(100% - 145px);
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+    border-left: 2px solid rgb(242,243,247);
+    border-top: 2px solid rgb(242,243,247);
+    /* box-shadow: 0px 0px 3px rgb(0, 176, 231); */
+    border-radius: 5px;
+}
+
+.individual-project {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-family:monospace;
+    font-weight: 100;
+    font-size: 16px;
+    color: rgb(119,119,119);
+    padding-left:25px;
+    padding-top:25px;
+    border-radius: 5px;
+    border-top: 1px solid rgb(0, 176, 231);
+    border-left: 2px solid rgb(0, 176, 231);
+    border-bottom: 1px solid rgb(242,243,247);
+    margin-bottom: 10px;
+}
+
+.project-top {
+    height: 60px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+}
+
+.project-top-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-image {
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.project-name {
+    font-size: 22px;
+    font-weight: bold;
+    color:rgb(0, 176, 231)
+}
+
+.project-created-at {
+    font-style: italic;
+}
+
+.project-middle {
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+.project-bottom {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(229, 229, 229);
+    padding-bottom: 15px;
+}
+
+.ind-role {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.role-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 176, 231)
+}
+
+.project-footer {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    font-size: 17px;
+}
+
+.project-owner{
+    margin-left: 5px;
+    color:rgb(124,99,176);
 }

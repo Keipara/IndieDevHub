@@ -1,12 +1,11 @@
 
-import React, {useState} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { useSelector } from 'react-redux';
 import './navigation.css';
 
 const NavBar = () => {
-  const [showCreateProject, setShowCreateProject] = useState(false)
   const sessionUser = useSelector(state => state.session.user);
   let sessionLinks;
 
@@ -43,7 +42,7 @@ const NavBar = () => {
   return (
     <nav>
       <link rel="preconnect" href="https://fonts.googleapis.com"/>
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+      <link rel="preconnect" href="https://fonts.gstatic.com"/>
       <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet"></link>
         <div className='nav-container'>
             <div className='home-div'>

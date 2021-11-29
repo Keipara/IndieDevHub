@@ -62,10 +62,9 @@ def update_project(id):
     string = body['array']
     array = eval(string)
     projectRoles = Role.query.filter(Role.project_id == Project.id)
-
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print('AAAAAAA', body['deadline'])
+
         project = Project.query.filter(Project.id == id).first()
         project.name=form.data['name'],
         project.user_id=form.data['user_id'],
