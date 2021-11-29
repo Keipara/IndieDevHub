@@ -16,7 +16,14 @@
     flex-direction: row;
 }
 
+.middle-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .owner-actions {
+    width: 300px;
     border: 1px solid rgb(202, 202, 202);
     margin:20px;
 }
@@ -174,8 +181,8 @@
 }
 
 .comments-div {
-    width: 90.5%;
-    margin:40px;
+    width: 95.5%;
+    margin:30px;
     background-color: white;
     border: 1px solid rgb(202, 202, 202);
     overflow-x: hidden;
@@ -196,7 +203,7 @@
     margin:10px;
     display: flex;
     justify-content: center;
-    font-size: 16px;
+    font-size: 15px;
     resize: none;
     border: 1px solid rgb(202, 202, 202);
 }
@@ -286,4 +293,50 @@
     display: flex;
     align-items: center;
     background-color: rgb(217,83,79);
+}
+
+.delete-container {
+    width: 300px;
+    margin:20px;
+    padding:20px;
+    background-color: rgb(255, 223, 229);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.delete-text {
+    color: black;
+}
+
+.delete-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.delete-text {
+    color: rgb(206, 69, 94);
+    margin-bottom: 10px;
+}
+
+#delete-delete {
+    color:red;
+}
+
+#cancel-delete {
+    color: black;
+}
+
+.edit-buttons {
+    display: flex;
+}
+
+.edit-buttons > * {
+    margin:5px;
+    color: rgb(100, 82, 162);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.edit-button:hover{
+    cursor: pointer;
+    font-weight: 600;
 }

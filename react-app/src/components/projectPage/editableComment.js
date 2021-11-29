@@ -64,65 +64,43 @@ function EditableComment({userId, projectId, comment}) {
                 </div>
             )}
             {showEdit && (
-                <div>
-                    <div className="owner-messages">
-                        <div className="own-msg-test"key={comment?.id}>
-                            <div className="edit-column">
-                                <div className="user-time">
-                                    <div style={{ fontWeight: 900, fontSize: 15 }}> {comment?.user?.username}</div>
+                <div className="individual-comment">
+                        <div style={{ fontWeight: 900, fontSize: 15 }} className='comment-username'> {comment?.user?.username}</div>
+                        <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
+                            <input
+                                type="text"
+                                value={messageBody}
+                                required
+                                autoComplete="off"
+                                onChange={(e) => setMessageBody(e.target.value)}
+                                className="comment-input"
+                                onKeyDown={(e) => {if (e.key === 'Enter'){updateMessage()}}}
+                            />
+                            <div className="edit-buttons">
+                                <div type="submit">
+                                    <div className="editChannelIcons" id="leftIcon">
+                                        <text className="edit-button">save</text>
+                                    </div>
+                                </div>
+                                <div onClick={() => setShowEdit(false)}>
+                                    <div className="editChannelIcons">
+                                        <text className="edit-button">cancel</text>
+                                    </div>
                                 </div>
                             </div>
-                                <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
-                                    <input
-                                        type="text"
-                                        value={messageBody}
-                                        required
-                                        autoComplete="off"
-                                        onChange={(e) => setMessageBody(e.target.value)}
-                                        className="edit-input"
-                                        onKeyDown={(e) => {if (e.key === 'Enter'){updateMessage()}}}
-                                    />
-                                    <div className="edit-buttons">
-                                        <button onClick={() => setShowEdit(false)}>
-                                            <div className="editChannelIcons">
-                                                <i className="edit-hyper">cancel</i>
-                                            </div>
-                                        </button>
-                                        <button type="submit">
-                                            <div className="editChannelIcons" id="leftIcon">
-                                                <i className="edit-hyper">save</i>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+                        </form>
                 </div>
             )}
             {showDelete && (
-                <div className="addModal" id="addServerModal">
-                    <div className="modal-container">
-                        <div className="top-part">
-                            <h3 id="deleteMessageHeader">Delete Message</h3>
-                            <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
-                                <div className="message-preview">
-                                    <div className="comment-bottom-half">
-                                        <div className="comment-header">
-                                        {comment?.user?.username}
-                                        </div>
-                                        <div className="comment-message">
-                                            {comment?.message}
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="delete-container">
+                        <div className="delete-text">
+                            This cannot be undone. You must be absolutely sure before you go off and push this button. I'm serious, no takebacks.
                         </div>
-                        <div className="bottom-part">
-                            <div id="deleteMessage" onClick={handleDelete}>Delete</div>
-                            <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
+                        <div className="delete-buttons">
+                            <div id="delete-delete" onClick={handleDelete}>Delete</div>
+                            <div id="cancel-delete" onClick={handleCancel}>Cancel</div>
                         </div>
                     </div>
-                </div>
 
             )}
         </div>

@@ -106,18 +106,15 @@ function ProjectsPage() {
                         </div>
                         )}
                         {showDelete && (
-                            <div className="addModal" id="addServerModal">
-                                <div className="modal-container">
-                                    <div className="top-part">
-                                        <h3 id="deleteMessageHeader">Delete Message</h3>
-                                        <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
-                                    </div>
-                                    <div className="bottom-part">
-                                        <div id="deleteMessage" onClick={handleDelete}>Delete</div>
-                                        <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
-                                    </div>
-                                </div>
+                        <div className="delete-container">
+                            <div className="delete-text">
+                                This cannot be undone. You must be absolutely sure before you go off and push this button. I'm serious, no takebacks.
                             </div>
+                            <div className="delete-buttons">
+                                <div id="delete-delete" onClick={handleDelete}>Delete</div>
+                                <div id="cancel-delete" onClick={handleCancel}>Cancel</div>
+                            </div>
+                        </div>
 
                         )}
                         <div className='left-column'>
