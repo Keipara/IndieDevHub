@@ -60,7 +60,7 @@ function CreateProject() {
                 className="project-form">
                 <div className='create-projects-portion'>
                     <div className='input-header'>Project Title</div>
-                    <input
+                    <textarea
                         className="create-input"
                         type="text"
                         value={name}
@@ -70,7 +70,7 @@ function CreateProject() {
                         required
                     />
                     <div className='input-header'>Project Description</div>
-                    <input
+                    <textarea
                         className="create-input"
                         type=""
                         value={projectDescription}
@@ -80,7 +80,7 @@ function CreateProject() {
                         required
                     />
                     <div className='input-header'>User Description</div>
-                    <input
+                    <textarea
                         className="create-input"
                         type=""
                         value={ownerDescription}
@@ -93,7 +93,7 @@ function CreateProject() {
                     <div className="cs-input-field">
                         <select
                         name="genres"
-                        className='project-select'
+                        className="create-input"
                         id="genres"
                         onChange={(e) => setGenres(e.target.value)}
                         value={genres}
@@ -106,7 +106,7 @@ function CreateProject() {
                         </select>
                     </div>
                     <div className='input-header'>Project Image</div>
-                    <input
+                    <textarea
                         className="create-input"
                         type=""
                         value={image}
@@ -119,9 +119,9 @@ function CreateProject() {
                     </div>
                     </div>
                     {formValues.map((element, index) => (
-                        <div className="individual-role" key={index}>
+                        <div className="individual-create-role" key={index}>
                             <label className='input-header'>Custom Name</label>
-                            <input
+                            <textarea
                             type="text"
                             className="create-input"
                             name="customName"
@@ -151,7 +151,7 @@ function CreateProject() {
                                 <option value="9">9+</option>
                             </select>
                             <label className='input-header'>Description</label>
-                            <input
+                            <textarea
                             type="text"
                             className="create-input"
                             name="description"
@@ -163,10 +163,10 @@ function CreateProject() {
                                 : null}
                         </div>
                     ))}
-                    <div className="button-section">
                         <div>
                             <button className="role-button" type="button" onClick={() => addFormFields()}>Add Role</button>
                         </div>
+                    <div className="button-section">
                         <div className='project-submit-container'>
                             <button className="project-submit" type="submit">PUBLISH PROJECT</button>
                         </div>
