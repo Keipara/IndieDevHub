@@ -2,16 +2,22 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink} from "react-router-dom";
 import { loadProjects } from '../../store/project';
+import { loadRoles } from '../../store/role';
 import './projectContainer.css'
 
 function ProjectsContainer() {
 
     const dispatch = useDispatch();
-    const projects = useSelector(state => Object.values(state.projects));
+    const projects = useSelector(state => Object.values(state?.projects));
+    const roles = useSelector(state => Object.values(state?.roles));
 
     //functions
     useEffect(() => {
         dispatch(loadProjects())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadRoles())
     }, [dispatch])
 
     return (
@@ -20,65 +26,50 @@ function ProjectsContainer() {
                 <h2>Open Projects</h2>
             </div>
             <div className="filters-projects-container">
-                <div className="filters">
-                    <div className="filters-header">
-                        <h3>Filters</h3>
-                    </div>
-                    <div className="role-filter">
-                        <>Programmer</>
-                        <>Artist</>
-                        <>Audio Tech.</>
-                        <>Designer</>
-                        <>Writer</>
-                        <>Producer</>
-                    </div>
-                    <div className="genre-filter">
-                        <>Visual Novel</>
-                        <>RPG</>
-                        <>Puzzle</>
-                        <>Roguelike</>
-                        <>2D</>
-                        <>3D</>
-                    </div>
-                    <div className="etc-filter">
-                        <>Created at</>
-                        <>Deadline</>
-                        <>etc</>
-                    </div>
-                </div>
                 <div className="projects-container">
 
-                    {projects?.map((project) => {
-                    
+                    {projects?.reverse().map((project) => {
+
                         return (
                             <div className="individual-project" key={project?.id}>
                                 <div className="project-top">
-                                    {/* <img
+                                    <img
                                         src={project?.image}
                                         className="project-image"
                                         alt="project-img"
-                                        width="42"
-                                        height="42"
-                                    ></img> */}
-                                    {project?.image}
-                                    <NavLink to={`/projects/${project?.id}`} exact>
-                                        <div>{project?.name}</div>
-                                    </NavLink>
-                                    <div>{project?.deadline.slice(0, 16)}</div>
+                                        width="50"
+                                        height="50"
+                                    ></img>
+                                    <div className='project-top-right'>
+                                    <div >
+                                        <NavLink to={`/projects/${project?.id}`} exact>
+                                            <div className='project-name'>{project?.name}</div>
+                                        </NavLink>
+                                    </div>
+                                    <div className='project-created-at'>Created on {project?.created_at.slice(0, 16)}</div>
+                                    </div>
                                 </div>
                                 <div className="project-middle">{project?.project_description}</div>
                                 <div className="project-bottom">
-                                    <>Programmer</>
-                                    <>Artist</>
-                                    <>Audio Tech.</>
-                                    <>Designer</>
-                                    <>Writer</>
-                                    <>Producer</>
+                                    {roles?.filter(role => role?.project?.id === project?.id).map((filteredRole) => {
+                                        return (
+                                            <div className='ind-role'>
+                                                <div className='role-type'>
+                                                {filteredRole?.type}:
+                                                </div>
+                                                <div className='role-name'>
+                                                {filteredRole?.custom_name}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <div className='project-footer'>
+                                    by <div class='project-owner'>{project?.user?.username}</div>
                                 </div>
                             </div>
                         );
-                        }
-                    )}
+                    })}
                 </div>
             </div>
         </div>

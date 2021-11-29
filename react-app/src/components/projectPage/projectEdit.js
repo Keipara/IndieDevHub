@@ -1,34 +1,58 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
-import './createProject.css'
+import { useParams } from 'react-router';
+import { editProject } from '../../store/project';
+import { loadProjects } from '../../store/project';
+import { loadRoles } from '../../store/role';
 
 
-function CreateProject() {
+function EditProject() {
     //setup
     const dispatch = useDispatch();
     const history = useHistory();
     const userId = useSelector(state => state.session.user?.id);
+    const {id} = useParams()
+    const projects = useSelector(state => Object.values(state?.projects));
+    const singleProject = projects.find(project => project?.id === parseInt(id))
+    const roles = useSelector(state => Object.values(state?.roles));
+    const projectRoles = roles.filter(role => role?.project_id === parseInt(id))
+    const projectId = singleProject?.id
+    console.log(singleProject)
 
     //form
-    const [formValues, setFormValues] = useState([{}])
+    const [formValues, setFormValues] = useState(projectRoles?.map(role => ({
+        customName: role?.custom_name,
+        type: role?.type,
+        quantity: role?.quantity,
+        description: role?.description
+    })))
+
+    console.log("Form values:", formValues)
 
     //projects
-    const [name, setName] = useState("")
-    const [projectDescription, setProjectDescription] = useState("")
-    const [ownerDescription, setOwnerDescription] = useState("")
+    const [name, setName] = useState(singleProject?.name);
+    const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
+    const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
     const [genres, setGenres] = useState("Other")
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState(singleProject?.image)
 
-    const projectSubmit = async (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        dispatch(loadProjects())
+    }, [dispatch])
 
-        const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)));
-        if(newProject) {
-           history.push('/projects')
-         }
+    useEffect(() => {
+        dispatch(loadRoles())
+    }, [dispatch])
+
+    const updateProject = async (e) => {
+        e?.preventDefault();
+
+        console.log(JSON.stringify(formValues))
+        await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)))
+        history.push('/')
+
     }
 
     let handleChange = (i, e) => {
@@ -38,7 +62,7 @@ function CreateProject() {
     }
 
     let addFormFields = () => {
-        setFormValues([...formValues, { customName: "", Type: "Producer", quantity: "1", description: ""}])
+        setFormValues([...formValues, { customName: "", Type: "", quantity: "", description: ""}])
     }
 
     let removeFormFields = (i) => {
@@ -50,16 +74,16 @@ function CreateProject() {
     return (
         <div className='create-projects-page'>
             <div className='projects-header'>
-                <h2>Create Project</h2>
+                <h2 >Edit Project</h2>
             </div>
-            <div className=''>
+            <div>
                 <form
                 id="projectForm"
-                onSubmit={projectSubmit}
+                onSubmit={updateProject}
                 autoComplete="off"
                 className="project-form">
-                <div className='create-projects-portion'>
-                    <div className='input-header'>Project Title</div>
+                <div className='create-projects-portion2'>
+                <div className='input-header'>Project Title</div>
                     <textarea
                         className="create-input"
                         type="text"
@@ -72,7 +96,7 @@ function CreateProject() {
                     <div className='input-header'>Project Description</div>
                     <textarea
                         className="create-input"
-                        type=""
+                        type="text"
                         value={projectDescription}
                         onChange={(e) => setProjectDescription(e.target.value)}
                         maxLength={5000}
@@ -86,14 +110,14 @@ function CreateProject() {
                         value={ownerDescription}
                         onChange={(e) => setOwnerDescription(e.target.value)}
                         maxLength={5000}
-                        placeholder={"Describe yourself. Don't forget your contact method!"}
+                        placeholder={"Describe yourself"}
                         required
                     />
                     <div className='input-header'>Game Engine Preference</div>
                     <div className="cs-input-field">
                         <select
+                        className='project-select'
                         name="genres"
-                        className="create-input"
                         id="genres"
                         onChange={(e) => setGenres(e.target.value)}
                         value={genres}
@@ -113,24 +137,19 @@ function CreateProject() {
                         onChange={(e) => setImage(e.target.value)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
-                        required
                     />
-                    <div>
-                    </div>
-                    </div>
+                </div>
+
+                    <div className="roles-container">
+
+
                     {formValues.map((element, index) => (
                         <div className="individual-create-role" key={index}>
                             <label className='input-header'>Custom Name</label>
-                            <textarea
-                            type="text"
-                            className="create-input"
-                            name="customName"
-                            value={element.customName || ""}
-                            onChange={e => handleChange(index, e)}
-                            required/>
+                            <textarea className="create-input" type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
                             <label className='input-header'>Type</label>
-                            <select className='project-select' type="text" name="type" value={element.type || ""} defaultValue={{ label: "Type", value: 'Producer' }} onChange={e => handleChange(index, e)} required>
-                                <option value="">Please select</option>
+                            <select className='project-select' type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
+                                <option value="">Select role</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>
                                 <option value="Designer">Designer</option>
@@ -151,25 +170,18 @@ function CreateProject() {
                                 <option value="9">9</option>
                             </select>
                             <label className='input-header'>Description</label>
-                            <textarea
-                            type="text"
-                            className="create-input"
-                            name="description"
-                            value={element.description || ""}
-                            onChange={e => handleChange(index, e)}
-                            required/>
-                            {index ?
-                                <button type="button"  className="role-button" onClick={() => removeFormFields(index)}>Remove Role</button>
-                                : null}
+                            <textarea className="create-input" type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
+                            <button type="button"  className="role-button" onClick={() => removeFormFields(index)}>Remove Role</button>
                         </div>
                     ))}
+
+                    </div>
+
                         <div>
                             <button className="role-button" type="button" onClick={() => addFormFields()}>Add Role</button>
                         </div>
                     <div className="button-section">
-                        <div className='project-submit-container'>
-                            <button className="project-submit" type="submit">PUBLISH PROJECT</button>
-                        </div>
+                        <button className="project-submit" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -177,4 +189,4 @@ function CreateProject() {
     )
 }
 
-export default CreateProject
+export default EditProject

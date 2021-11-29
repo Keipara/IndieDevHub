@@ -23,5 +23,6 @@ class Role(db.Model):
             'custom_name': self.custom_name,
             'type': self.type,
             'quantity': self.quantity,
-            'description': self.description
+            'description': self.description,
+            'project': self.project.to_dict()
         }

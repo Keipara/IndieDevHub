@@ -1,0 +1,53 @@
+.splash{
+    overflow-x: hidden;
+}
+
+.splash-top {
+    height: 25vh;
+    background-color: rgb(242, 106, 43);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.splash-header {
+    font-size: 45px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.join-div {
+    margin: 10px;
+    height: 50px;
+    width: 208px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgb(138,116,185);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    color: white
+}
+
+.join-div:hover{
+    background-color: rgb(124,99,176);
+}
+
+.splash-bottom {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+}
+
+.splash-image {
+    height: auto;
+    max-height: 300px;
+    width: auto;
+}

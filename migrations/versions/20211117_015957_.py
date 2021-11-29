@@ -25,7 +25,6 @@ def upgrade():
     sa.Column('project_description', sa.String(length=5000), nullable=False),
     sa.Column('owner_description', sa.String(length=5000), nullable=False),
     sa.Column('created_at', sa.Date(), nullable=False),
-    sa.Column('deadline', sa.Date(), nullable=False),
     sa.Column('genres', sa.String(length=200), nullable=False),
     sa.Column('image', sa.String(length=1000), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
