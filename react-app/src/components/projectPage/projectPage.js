@@ -26,7 +26,6 @@ function ProjectsPage() {
 
     //edit and delete
     const [showEditButton, setShowEditButton] = useState(false);
-    const [showEdit, setShowEdit] = useState(false);
     const [showDeleteButton, setShowDeleteButton] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 

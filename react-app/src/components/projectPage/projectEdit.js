@@ -1,9 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createProject } from '../../store/project';
 import { useSelector } from 'react-redux';
-import Calendar from 'react-calendar';
 import { useParams } from 'react-router';
 import { editProject } from '../../store/project';
 import { loadProjects } from '../../store/project';
@@ -20,7 +18,6 @@ function EditProject() {
     const singleProject = projects.find(project => project?.id === parseInt(id))
     const roles = useSelector(state => Object.values(state?.roles));
     const projectRoles = roles.filter(role => role?.project_id === parseInt(id))
-    const projectUser = useSelector(state => (state?.session?.user));
     const projectId = singleProject?.id
     console.log(singleProject)
 
@@ -54,7 +51,7 @@ function EditProject() {
 
         console.log(JSON.stringify(formValues))
         await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)))
-        // window.location.reload()
+        history.push('/')
 
     }
 
@@ -75,17 +72,20 @@ function EditProject() {
     }
 
     return (
-        <div>
-            {singleProject?.name}
-            <div>Edit Project</div>
+        <div className='create-projects-page'>
+            <div className='projects-header'>
+                <h2 >Edit Project</h2>
+            </div>
             <div>
                 <form
                 id="projectForm"
                 onSubmit={updateProject}
                 autoComplete="off"
                 className="project-form">
-                    <input
-                        className="name-container"
+                <div className='create-projects-portion2'>
+                <div className='input-header'>Project Title</div>
+                    <textarea
+                        className="create-input"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -93,8 +93,9 @@ function EditProject() {
                         placeholder={"Your Project Title"}
                         required
                     />
-                    <input
-                        className=""
+                    <div className='input-header'>Project Description</div>
+                    <textarea
+                        className="create-input"
                         type="text"
                         value={projectDescription}
                         onChange={(e) => setProjectDescription(e.target.value)}
@@ -102,8 +103,9 @@ function EditProject() {
                         placeholder={"Describe your project"}
                         required
                     />
-                    <input
-                        className=""
+                    <div className='input-header'>User Description</div>
+                    <textarea
+                        className="create-input"
                         type=""
                         value={ownerDescription}
                         onChange={(e) => setOwnerDescription(e.target.value)}
@@ -111,8 +113,10 @@ function EditProject() {
                         placeholder={"Describe yourself"}
                         required
                     />
+                    <div className='input-header'>Game Engine Preference</div>
                     <div className="cs-input-field">
                         <select
+                        className='project-select'
                         name="genres"
                         id="genres"
                         onChange={(e) => setGenres(e.target.value)}
@@ -125,25 +129,26 @@ function EditProject() {
                             <option value="Ren'Py">Ren'Py</option>
                         </select>
                     </div>
-                    <input
-                        className=""
+                    <div className='input-header'>Project Image</div>
+                    <textarea
+                        className="create-input"
                         type=""
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
                     />
-                    <div>
+                </div>
 
                     <div className="roles-container">
 
 
                     {formValues.map((element, index) => (
-                        <div className={index} key={index}>
-                            <label>Custom Name</label>
-                            <input type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
-                            <label>Type</label>
-                            <select type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
+                        <div className="individual-create-role" key={index}>
+                            <label className='input-header'>Custom Name</label>
+                            <textarea className="create-input" type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
+                            <label className='input-header'>Type</label>
+                            <select className='project-select' type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
                                 <option value="">Select role</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>
@@ -152,8 +157,8 @@ function EditProject() {
                                 <option value="Artist">Artist</option>
                                 <option value="Audio Technician">Audio Technician</option>
                             </select>
-                            <label>Quantity</label>
-                            <select type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
+                            <label className='input-header'>Quantity</label>
+                            <select className='project-select' type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -164,21 +169,19 @@ function EditProject() {
                                 <option value="8">8</option>
                                 <option value="9">9</option>
                             </select>
-                            <label>Description</label>
-                            <input type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
-                            <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
+                            <label className='input-header'>Description</label>
+                            <textarea className="create-input" type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
+                            <button type="button"  className="role-button" onClick={() => removeFormFields(index)}>Remove Role</button>
                         </div>
                     ))}
 
                     </div>
 
-                    </div>
-
-                    <div className="button-section">
                         <div>
-                            <button className="button-add" type="button" onClick={() => addFormFields()}>Add</button>
+                            <button className="role-button" type="button" onClick={() => addFormFields()}>Add Role</button>
                         </div>
-                        <button className="button-submit" type="submit">Submit</button>
+                    <div className="button-section">
+                        <button className="project-submit" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
