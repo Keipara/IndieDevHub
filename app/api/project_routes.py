@@ -33,7 +33,6 @@ def post_project():
             project_description=form.data['project_description'],
             owner_description=form.data['owner_description'],
             created_at=datetime.datetime.today(),
-            deadline=body['deadline'],
             genres=form.data['genres'],
             image=form.data['image'],
             )
@@ -71,7 +70,6 @@ def update_project(id):
         project.project_description=form.data['project_description'],
         project.owner_description=form.data['owner_description'],
         project.created_at=datetime.datetime.today(),
-        project.deadline=body['deadline'],
         project.genres=form.data['genres'],
         project.image=form.data['image'],
 

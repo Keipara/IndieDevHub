@@ -1,15 +1,13 @@
 from app.models import db, Project
 from datetime import datetime, timedelta
 
-deadline = datetime.now() + timedelta(days=14)
-
 def seed_projects():
     one = Project(
-        name='Project One', user_id=1, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), deadline=deadline, genres='Other')
+        name='Project One', user_id=1, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), genres='Other')
     two = Project(
-        name='Project Two', user_id=2, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), deadline=deadline, genres='Other')
+        name='Project Two', user_id=2, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), genres='Other')
     three = Project(
-        name='Project Three', user_id=3, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), deadline=deadline, genres='Other')
+        name='Project Three', user_id=3, project_description='Project description', owner_description='Owner description',created_at=datetime.today(), genres='Other')
 
     db.session.add(one)
     db.session.add(two)

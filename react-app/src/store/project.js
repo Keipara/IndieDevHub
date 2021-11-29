@@ -37,7 +37,7 @@ export const loadProjects = () => async (dispatch) => {
     }
 }
 
-export const createProject = (user_id, name, project_description, owner_description, deadline, genres, image, array) => async (dispatch) => {
+export const createProject = (user_id, name, project_description, owner_description, genres, image, array) => async (dispatch) => {
     const response = await fetch(`/api/projects/new`, {
         method: "POST",
         headers: {
@@ -48,7 +48,6 @@ export const createProject = (user_id, name, project_description, owner_descript
             name,
             project_description,
             owner_description,
-            deadline,
             genres,
             image,
             array
@@ -68,7 +67,7 @@ export const createProject = (user_id, name, project_description, owner_descript
       }
   }
 
-  export const editProject = (id, user_id, name, project_description, owner_description, deadline, genres, image, array) => async (dispatch) => {
+  export const editProject = (id, user_id, name, project_description, owner_description, genres, image, array) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}/edit`, {
         method: 'PATCH',
         headers: {
@@ -80,7 +79,6 @@ export const createProject = (user_id, name, project_description, owner_descript
           name,
           project_description,
           owner_description,
-          deadline,
           genres,
           image,
           array

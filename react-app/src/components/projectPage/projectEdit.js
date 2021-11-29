@@ -38,11 +38,8 @@ function EditProject() {
     const [name, setName] = useState(singleProject?.name);
     const [projectDescription, setProjectDescription] = useState(singleProject?.project_description)
     const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
-    const [deadline, setDeadline] = useState(singleProject?.deadline)
     const [genres, setGenres] = useState("Other")
     const [image, setImage] = useState(singleProject?.image)
-
-    console.log(singleProject?.deadline)
 
     useEffect(() => {
         dispatch(loadProjects())
@@ -56,7 +53,7 @@ function EditProject() {
         e?.preventDefault();
 
         console.log(JSON.stringify(formValues))
-        await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, deadline, genres, image, JSON.stringify(formValues)))
+        await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)))
         // window.location.reload()
 
     }
@@ -114,12 +111,6 @@ function EditProject() {
                         placeholder={"Describe yourself"}
                         required
                     />
-                    <div className="calendar">
-                    Deadline: {deadline?.toString()?.slice(0, 16)? deadline?.toString()?.slice(0, 16) : singleProject?.deadline.toString().slice(0, 16)}
-                    <Calendar
-                        onChange={setDeadline}
-                    />
-                    </div>
                     <div className="cs-input-field">
                         <select
                         name="genres"

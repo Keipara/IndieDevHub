@@ -26,7 +26,6 @@ def post_role():
             name=form.data['name'],
             role_description=form.data['role_description'],
             owner_description=form.data['owner_description'],
-            deadline=form.data['deadline'],
             genres=form.data['genres'],
             image=form.image['image'])
         db.session.add(role)

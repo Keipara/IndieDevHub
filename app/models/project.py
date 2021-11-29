@@ -9,7 +9,6 @@ class Project(db.Model):
     project_description = db.Column(db.String(5000), nullable=False, unique=False)
     owner_description = db.Column(db.String(5000), nullable=False, unique=False)
     created_at = db.Column(db.Date, nullable=False, unique=False)
-    deadline = db.Column(db.Date, nullable=False, unique=False)
     genres = db.Column(db.String(200), nullable=False, unique=False)
     image = db.Column(db.String(1000), nullable=True, unique= False)
 
@@ -25,7 +24,6 @@ class Project(db.Model):
             'project_description': self.project_description,
             'owner_description': self.owner_description,
             'created_at': self.created_at,
-            'deadline': self.deadline,
             'genres': self.genres,
             'image': self.image,
             'user': self.user.to_dict()
