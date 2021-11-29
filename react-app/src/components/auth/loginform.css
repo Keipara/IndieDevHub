@@ -10,9 +10,9 @@ h3 {
 }
 
 .login-container {
+    height: calc(100vh - 170px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 

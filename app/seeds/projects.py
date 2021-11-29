@@ -69,7 +69,7 @@ Cursus vitae congue mauris rhoncus. Massa id neque aliquam vestibulum morbi blan
         image='https://image.api.playstation.com/cdn/UP4882/CUSA12878_00/NOTe9PbIoUkvKQU6VPceO4f9pGdazDv1.png')
 
     sevenP = Project(
-        name='Valheim - Norse-themed survival sandbox',
+        name='Valheim - Survival sandbox inspired by viking culture',
         user_id=7,
         project_description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Placerat in egestas erat imperdiet. Mattis enim ut tellus elementum sagittis vitae et leo. Erat pellentesque adipiscing commodo elit at. Nulla facilisi etiam dignissim diam quis enim. Tristique senectus et netus et malesuada fames. Sapien et ligula ullamcorper malesuada proin libero. Commodo nulla facilisi nullam vehicula. Ut porttitor leo a diam sollicitudin tempor. In ante metus dictum at tempor. Interdum varius sit amet mattis. Pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Dolor morbi non arcu risus quis varius quam quisque id. Rhoncus dolor purus non enim. Nec nam aliquam sem et. Faucibus turpis in eu mi. Ac turpis egestas sed tempus urna et. Tempus urna et pharetra pharetra massa massa ultricies mi. In nulla posuere sollicitudin aliquam ultrices sagittis.
 

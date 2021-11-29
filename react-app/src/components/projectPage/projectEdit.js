@@ -51,7 +51,7 @@ function EditProject() {
 
         console.log(JSON.stringify(formValues))
         await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)))
-        history.push('/')
+        history.push(`/projects/${projectId}`)
 
     }
 
