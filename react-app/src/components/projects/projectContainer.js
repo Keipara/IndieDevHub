@@ -28,7 +28,7 @@ function ProjectsContainer() {
             <div className="filters-projects-container">
                 <div className="projects-container">
 
-                    {projects?.map((project) => {
+                    {projects?.reverse().map((project) => {
 
                         return (
                             <div className="individual-project" key={project?.id}>

@@ -40,7 +40,7 @@ function EditProject() {
     const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
     const [deadline, setDeadline] = useState(singleProject?.deadline)
     const [genres, setGenres] = useState("Other")
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState(singleProject?.image)
 
     console.log(singleProject?.deadline)
 
