@@ -114,6 +114,7 @@
 }
 
 .description-container {
+    min-width: calc(100vw - 500px);
     border: 1px solid rgb(202, 202, 202);
     background-color:white;
     margin:20px;

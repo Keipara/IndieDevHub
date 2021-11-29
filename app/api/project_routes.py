@@ -60,7 +60,7 @@ def update_project(id):
     body = request.json
     string = body['array']
     array = eval(string)
-    projectRoles = Role.query.filter(Role.project_id == Project.id)
+    projectRoles = Role.query.filter(Role.project_id == id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 

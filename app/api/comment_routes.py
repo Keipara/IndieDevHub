@@ -15,7 +15,6 @@ app = flask.Flask(__name__)
 
 # Get project comments
 @comment_routes.route('/<int:projectId>/comments')
-@login_required
 def get_comments(projectId):
 
     projectComments = Comment.query.filter(Comment.project_id == projectId).all()
