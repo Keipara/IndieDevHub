@@ -26,7 +26,7 @@ function CreateProject() {
         e.preventDefault();
 
         const newProject = await dispatch(createProject(userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)));
-        if(newProject) {
+        if(!newProject) {
            history.push('/projects')
          }
     }
@@ -38,7 +38,7 @@ function CreateProject() {
     }
 
     let addFormFields = () => {
-        setFormValues([...formValues, { customName: "", Type: "Producer", quantity: "1", description: ""}])
+        setFormValues([...formValues, { customName: "", Type: "", quantity: "", description: ""}])
     }
 
     let removeFormFields = (i) => {
@@ -46,6 +46,21 @@ function CreateProject() {
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
     }
+
+    function validateImage(e) {
+        var formData = new FormData();
+        var file = document.getElementById("img").files[0];
+        formData.append("Filedata", file);
+
+        var t = file.type.split('/').pop().toLowerCase();
+        if (t != "jpeg" && t != "jpg" && t != "png" && t != "bmp" && t != "gif") {
+            alert('Please select a valid image file');
+            document.getElementById("img").value = '';
+            return false;
+        }
+        return setImage(e.target.value);
+    }
+
 
     return (
         <div className='create-projects-page'>
@@ -106,11 +121,13 @@ function CreateProject() {
                         </select>
                     </div>
                     <div className='input-header'>Project Image</div>
-                    <textarea
+                    <input
+                        name='f'
+                        id='img'
                         className="create-input"
-                        type=""
+                        type="file"
                         value={image}
-                        onChange={(e) => setImage(e.target.value)}
+                        onChange={(e) => validateImage(e)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
                         required
@@ -139,7 +156,8 @@ function CreateProject() {
                                 <option value="Audio Technician">Audio Technician</option>
                             </select>
                             <label className='input-header'>Quantity</label>
-                            <select className='project-select' type="text" name="quantity" value={element.quantity || "1"} onChange={e => handleChange(index, e)}>
+                            <select className='project-select' type="text" name="quantity" value={element.quantity || ""} onChange={e => handleChange(index, e)} required>
+                                <option value="">Please select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

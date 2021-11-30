@@ -59,6 +59,9 @@ function ProjectsPage() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         // let newErrors = [];
+        if (!projectUser) {
+            history.push('/sign-up')
+        }
         await dispatch(addNewComment(projectId, userId, comment))
         // window.scroll(0, document.querySelector(".messages-div").scrollHeight)
         setComment("")
@@ -121,7 +124,7 @@ function ProjectsPage() {
                                 <img
                                 src={singleProject?.image}
                                 className="temp"
-                                alt="temp-icon"
+                                alt={'https://cdn.discordapp.com/attachments/370781138194530308/912422153377431552/unknown.png'}
                                 width="337"
                                 height="337"
                                 ></img>

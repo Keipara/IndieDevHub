@@ -74,6 +74,10 @@
     color:rgb(0, 176, 231)
 }
 
+.project-name:hover {
+    color: rgb(0, 0, 151);
+}
+
 .project-created-at {
     font-style: italic;
 }
