@@ -26,20 +26,14 @@ function ProjectsContainer() {
                 <h2>Open Projects</h2>
             </div>
             <div className="filters-projects-container">
-                <div className="projects-container">
+                <div className="projects-container" >
 
                     {projects?.reverse().map((project) => {
 
                         return (
-                            <div className="individual-project" key={project?.id}>
+                            <div className="individual-project" key={`projectContainer_${project?.id}`}>
                                 <div className="project-top">
-                                    <img
-                                        src={project?.image}
-                                        className="project-image"
-                                        alt="project-img"
-                                        width="50"
-                                        height="50"
-                                    ></img>
+                                <img className="project-image" width='50' height='50' src={project?.image} alt={project?.user?.username} onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/370781138194530308/912422153377431552/unknown.png"}}></img>
                                     <div className='project-top-right'>
                                     <div >
                                         <NavLink to={`/projects/${project?.id}`} exact>
@@ -53,7 +47,7 @@ function ProjectsContainer() {
                                 <div className="project-bottom">
                                     {roles?.filter(role => role?.project?.id === project?.id).map((filteredRole) => {
                                         return (
-                                            <div className='ind-role'>
+                                            <div className='ind-role' key={`projectContainer_${project?.id}_${filteredRole?.id}`}>
                                                 <div className='role-type'>
                                                 {filteredRole?.type}:
                                                 </div>
@@ -64,8 +58,8 @@ function ProjectsContainer() {
                                         )
                                     })}
                                 </div>
-                                <div className='project-footer'>
-                                    by <div class='project-owner'>{project?.user?.username}</div>
+                                <div className='project-footer' >
+                                    by <div className='project-owner'>{project?.user?.username}</div>
                                 </div>
                             </div>
                         );

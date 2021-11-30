@@ -5,11 +5,11 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import { authenticate } from './store/session';
-import MainContent from './components/mainContent/mainContent';
 import CreateProject from './components/createProject/createProject';
 import ProjectsPage from './components/projectPage/projectPage';
 import EditProject from './components/projectPage/projectEdit';
 import Footer from './components/auth/footer/footer';
+import ProjectsContainer from './components/projects/projectContainer';
 import './App.css';
 
 function App() {
@@ -63,7 +63,7 @@ function App() {
           <CreateProject/>
         </Route>
         <Route path={['/projects']} exact={true}>
-          <MainContent/>
+          <ProjectsContainer/>
         </Route>
         <Route path={'/projects/:id'} exact={true}>
           <ProjectsPage/>

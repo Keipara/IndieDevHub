@@ -47,21 +47,6 @@ function CreateProject() {
         setFormValues(newFormValues)
     }
 
-    function validateImage(e) {
-        var formData = new FormData();
-        var file = document.getElementById("img").files[0];
-        formData.append("Filedata", file);
-
-        var t = file.type.split('/').pop().toLowerCase();
-        if (t != "jpeg" && t != "jpg" && t != "png" && t != "bmp" && t != "gif") {
-            alert('Please select a valid image file');
-            document.getElementById("img").value = '';
-            return false;
-        }
-        return setImage(e.target.value);
-    }
-
-
     return (
         <div className='create-projects-page'>
             <div className='projects-header'>
@@ -122,12 +107,9 @@ function CreateProject() {
                     </div>
                     <div className='input-header'>Project Image</div>
                     <input
-                        name='f'
-                        id='img'
                         className="create-input"
-                        type="file"
                         value={image}
-                        onChange={(e) => validateImage(e)}
+                        onChange={(e) => setImage(e.target.value)}
                         maxLength={1000}
                         placeholder={"An image that represents your game"}
                         required
@@ -146,7 +128,7 @@ function CreateProject() {
                             onChange={e => handleChange(index, e)}
                             required/>
                             <label className='input-header'>Type</label>
-                            <select className='project-select' type="text" name="type" value={element.type || ""} defaultValue={{ label: "Type", value: 'Producer' }} onChange={e => handleChange(index, e)} required>
+                            <select className='project-select' type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
                                 <option value="">Please select</option>
                                 <option value="Producer">Producer</option>
                                 <option value="Programmer">Programmer</option>

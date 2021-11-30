@@ -121,13 +121,7 @@ function ProjectsPage() {
                         )}
                         <div className='left-column'>
                             <div className="project-image">
-                                <img
-                                src={singleProject?.image}
-                                className="temp"
-                                alt={'https://cdn.discordapp.com/attachments/370781138194530308/912422153377431552/unknown.png'}
-                                width="337"
-                                height="337"
-                                ></img>
+                            <img clasname='memberIcon' width='337' height='337' src={singleProject?.image} alt={projectUser?.username} onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/370781138194530308/912422153377431552/unknown.png"}}></img>
                             </div>
                             <div className="username-container">{singleProject?.user?.username}</div>
                             <div className="project-statistics">
@@ -172,7 +166,7 @@ function ProjectsPage() {
                 <div className="roles-container">
                 {projectRoles?.map((role) => {
                     return(
-                    <div className="individual-role">
+                    <div className="individual-role" key={`projectPage_role_${role?.id}`}>
                         <div className="custom-name"> ({role?.quantity}) {role?.custom_name}</div>
                         <div className="role-and-description">
                             <div className='role-container'>
@@ -213,7 +207,7 @@ function ProjectsPage() {
                     {comments?.map((comment) => {
                     if (userId === comment?.user_id) {
                     return (
-                        <div className="logged-user-comment" key={comment?.id}>
+                        <div className="logged-user-comment" key={`projectPage_userComment_${comment?.id}`}>
                             <EditableComment
                             userId={comment?.user_id}
                             projectId={comment?.project_id}
@@ -224,7 +218,7 @@ function ProjectsPage() {
                     );
                     } else {
                     return (
-                        <div className="individual-comment" key={comment?.id}>
+                        <div className="individual-comment" key={`projectsPage_comment_${comment?.id}`}>
                             <div className="comment-username">
                                 {comment?.user?.username}
                             </div>
