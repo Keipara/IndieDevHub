@@ -29,11 +29,7 @@ function EditableComment({userId, projectId, comment}) {
 
         e.preventDefault();
 
-        const data = await dispatch(deleteSingleComment(comment_id))
-        if (data) {
-        } else {
-            setShowDelete(false)
-        }
+        await dispatch(deleteSingleComment(comment_id))
     }
 
     const updateMessage = async (e) => {
@@ -84,12 +80,12 @@ function EditableComment({userId, projectId, comment}) {
                             <div className="edit-buttons">
                                 <div type="submit">
                                     <div className="editChannelIcons" id="leftIcon" onClick={updateMessage}>
-                                        <text className="edit-button" type='submit'>save</text>
+                                        <div className="edit-button" type='submit'>save</div>
                                     </div>
                                 </div>
                                 <div onClick={() => commentCancel()}>
                                     <div className="editChannelIcons">
-                                        <text className="edit-button">cancel</text>
+                                        <div className="edit-button">cancel</div>
                                     </div>
                                 </div>
                             </div>
