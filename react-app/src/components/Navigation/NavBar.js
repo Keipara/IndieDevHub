@@ -48,8 +48,8 @@ const NavBar = () => {
             <div className='home-div'>
               <NavLink to='/' exact={true} className='ind-words'>
                     <div className='indie'>INDIE</div>
-                    <div className='game'>GAME</div>
-                    <div className='dev'>DEV</div>
+                    <div className='game'>DEV</div>
+                    <div className='dev'>HUB</div>
               </NavLink>
             </div>
           <div className='right-nav'>
