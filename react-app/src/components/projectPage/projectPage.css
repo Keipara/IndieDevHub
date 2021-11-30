@@ -293,6 +293,11 @@
     background-color: rgb(66,139,202);
 }
 
+.comment-edit:hover {
+    cursor: pointer;
+    background-color: rgb(69, 69, 129);
+}
+
 .comment-delete {
     height: 20px;
     padding-right:10px;
@@ -300,6 +305,11 @@
     display: flex;
     align-items: center;
     background-color: rgb(217,83,79);
+}
+
+.comment-delete:hover {
+    cursor: pointer;
+    background-color: rgb(138, 49, 49);
 }
 
 .delete-container {
@@ -329,8 +339,18 @@
     color:red;
 }
 
+#delete-delete:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
 #cancel-delete {
     color: black;
+}
+
+#cancel-delete:hover {
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .edit-buttons {
