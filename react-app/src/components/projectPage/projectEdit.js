@@ -37,6 +37,7 @@ function EditProject() {
     const [ownerDescription, setOwnerDescription] = useState(singleProject?.owner_description)
     const [genres, setGenres] = useState("Other")
     const [image, setImage] = useState(singleProject?.image)
+    const [showDelete, setShowDelete] = useState(true)
 
     useEffect(() => {
         dispatch(loadProjects())
@@ -45,6 +46,14 @@ function EditProject() {
     useEffect(() => {
         dispatch(loadRoles())
     }, [dispatch])
+
+    useEffect(() => {
+        if (projectRoles.length === 1) {
+            setShowDelete(false)
+        } else {
+            setShowDelete(true)
+        }
+    }, [projectRoles])
 
     const updateProject = async (e) => {
         e?.preventDefault();
@@ -171,12 +180,13 @@ function EditProject() {
                             </select>
                             <label className='input-header'>Description</label>
                             <textarea className="create-input" type="text" name="description" value={element.description || ""} onChange={e => handleChange(index, e)} />
+                            {showDelete && (
                             <button type="button"  className="role-button" onClick={() => removeFormFields(index)}>Remove Role</button>
+                            )}
                         </div>
                     ))}
 
                     </div>
-
                         <div>
                             <button className="role-button" type="button" onClick={() => addFormFields()}>Add Role</button>
                         </div>

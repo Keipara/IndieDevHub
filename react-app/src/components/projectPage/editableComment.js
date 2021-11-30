@@ -20,6 +20,11 @@ function EditableComment({userId, projectId, comment}) {
         setShowDelete(false)
     }
 
+    const commentCancel = () => {
+        setMessageBody(comment?.message)
+        setShowEdit(false)
+    }
+
     const handleDelete = async (e) => {
 
         e.preventDefault();
@@ -70,19 +75,19 @@ function EditableComment({userId, projectId, comment}) {
                             <input
                                 type="text"
                                 value={messageBody}
-                                required
                                 autoComplete="off"
                                 onChange={(e) => setMessageBody(e.target.value)}
                                 className="comment-input"
                                 onKeyDown={(e) => {if (e.key === 'Enter'){updateMessage()}}}
+                                required
                             />
                             <div className="edit-buttons">
                                 <div type="submit">
-                                    <div className="editChannelIcons" id="leftIcon">
-                                        <text className="edit-button">save</text>
+                                    <div className="editChannelIcons" id="leftIcon" onClick={updateMessage}>
+                                        <text className="edit-button" type='submit'>save</text>
                                     </div>
                                 </div>
-                                <div onClick={() => setShowEdit(false)}>
+                                <div onClick={() => commentCancel()}>
                                     <div className="editChannelIcons">
                                         <text className="edit-button">cancel</text>
                                     </div>

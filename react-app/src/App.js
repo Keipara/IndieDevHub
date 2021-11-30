@@ -34,7 +34,7 @@ function App() {
       <Route path='/' exact={true} >
         <div className='splash'>
           <div className='splash-top'>
-            <div className='splash-header'>Make something amazing with others</div>
+            <div className='splash-header'>Start your indie game dev journey here</div>
             <div>
             <NavLink to="/sign-up">
               <div className='join-div'>
