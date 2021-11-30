@@ -1,135 +1,52 @@
-# Flask React Project
-
-This is the starter for the Flask React project.
-
-## Getting started
-
-1. Clone this repository (only this branch)
-
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
-
-2. Install dependencies
-
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
-
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
-
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
-
-## Deploy to Heroku
-
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
-
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
-
-   ```bash
-   heroku login
-   ```
-
-6. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. Release your docker container to heroku
-
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
-
-10. set up your database
-
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
-
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
-
-12. profit
-
-### For M1 Mac users
-
-(Replaces **Step 8**)
-
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
-
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
-
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
-
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-
-3. Use docker to push the image to the Heroku container registry:
-
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
 # IndieDevHub
+![Logo](https://cdn.discordapp.com/attachments/370781138194530308/912422153377431552/unknown.png)
+
+<br/>
+
+### Introduction
+IndieDevHub is an online platform for aspiring indie game developers to gather, share their ideas, and potentially form a game development team. This website was made by game developers, for game developers. Browse through the many open projects seeking talents to recruit, or perhaps create an account to leave a comment of support or interest. Perhaps, even start a project yourself!
+
+<br/>
+
+### Link: https://indie-dev-hub.herokuapp.com/
+
+<br/>
+
+### Technologies
+* Docker
+* PostgresQL
+* Flask-SQLAlchemy
+* React
+* Redux
+
+<br/>
+
+### Documentation: https://github.com/Keipara/IndieDevHub/wiki
+
+<br/>
+
+### How to Use
+* Splash Page
+Upon entering the website for the first time, you're faced with the spash page. Here, you can sign up or log in.
+![Splash Page](https://cdn.discordapp.com/attachments/370781138194530308/915149823781523456/unknown.png)
+* Open Projects Page
+Upon clicking Open Projects, you're introduced to all the projects posted from most recent to oldest. At a first glance, you can see the title, description, and the desired roles the project owner is seeking.
+![Projects Page](https://cdn.discordapp.com/attachments/370781138194530308/915149938378293248/unknown.png)
+* Project Page 
+Clicking on the title of a project will send you to the project page. Here, you can read up on more information that the brief descriptions on the open projects page couldn't fit such as owner description and role description. At the bottom of the page, users are able to comment words of support, or even express interest in joining the team.
+![Project Top Page](https://cdn.discordapp.com/attachments/370781138194530308/915150114216116244/unknown.png)
+![Project Bottom Page](https://cdn.discordapp.com/attachments/370781138194530308/915150166363897876/unknown.png)
+* Create Project Page
+To create a project yourself, you must log it and click on the Create Project button in the Navigation bar. This will send you to the project creation form. here, you can set details about the projects and roles of interest. One key feature is the user's ability to add/delete roles as necessary. All this can later be edited in the project's page if you are the owner of the project!
+![Create Project Page](https://cdn.discordapp.com/attachments/370781138194530308/915150278020435998/unknown.png)
+
+### What I learned
+* Allowing multiple database tables to be manipulated within a single API route was incredibly challenging. 
+* Implementing indexes that import time complexity at the cost of space was a great lesson
+
+### Future Plans
+* Project Deadlines
+* User Pages
+* Search Functionality
+* AWS 
+
