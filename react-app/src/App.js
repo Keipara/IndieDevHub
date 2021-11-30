@@ -10,6 +10,7 @@ import ProjectsPage from './components/projectPage/projectPage';
 import EditProject from './components/projectPage/projectEdit';
 import Footer from './components/auth/footer/footer';
 import ProjectsContainer from './components/projects/projectContainer';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -59,18 +60,18 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <Route path='/projects/new' exact={true}>
+        <ProtectedRoute path='/projects/new' exact={true}>
           <CreateProject/>
-        </Route>
+        </ProtectedRoute>
         <Route path={['/projects']} exact={true}>
           <ProjectsContainer/>
         </Route>
         <Route path={'/projects/:id'} exact={true}>
           <ProjectsPage/>
         </Route>
-        <Route path={'/projects/:id/edit'} exact={true}>
+        <ProtectedRoute path={'/projects/:id/edit'} exact={true}>
           <EditProject/>
-        </Route>
+        </ProtectedRoute>
       </Switch>
       <Footer/>
     </BrowserRouter>

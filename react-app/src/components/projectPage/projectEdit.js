@@ -65,12 +65,12 @@ function EditProject() {
 
 
     useEffect(() => {
-        if (projectRoles.length === 1) {
+        if (formValues.length === 1) {
             setShowDelete(false)
         } else {
             setShowDelete(true)
         }
-    }, [projectRoles])
+    }, [formValues])
 
     const updateProject = async (e) => {
         e?.preventDefault();
