@@ -19,7 +19,6 @@ function EditProject() {
     const roles = useSelector(state => Object.values(state?.roles));
     const projectRoles = roles.filter(role => role?.project_id === parseInt(id))
     const projectId = singleProject?.id
-    console.log(singleProject)
 
     //form
     const [formValues, setFormValues] = useState(projectRoles?.map(role => ({
@@ -28,8 +27,6 @@ function EditProject() {
         quantity: role?.quantity,
         description: role?.description
     })))
-
-    console.log("Form values:", formValues)
 
     //projects
     const [name, setName] = useState(singleProject?.name);
@@ -41,11 +38,31 @@ function EditProject() {
 
     useEffect(() => {
         dispatch(loadProjects())
+
     }, [dispatch])
 
     useEffect(() => {
         dispatch(loadRoles())
     }, [dispatch])
+
+    useEffect(() => {
+        setName(singleProject?.name)
+        setProjectDescription(singleProject?.project_description)
+        setOwnerDescription(singleProject?.owner_description)
+        setImage(singleProject?.image)
+
+    }, [singleProject])
+
+    useEffect(() => {
+        setFormValues(projectRoles?.map(role => ({
+            customName: role?.custom_name,
+            type: role?.type,
+            quantity: role?.quantity,
+            description: role?.description
+        })))
+
+    }, [projectRoles[0]])
+
 
     useEffect(() => {
         if (projectRoles.length === 1) {
@@ -58,7 +75,6 @@ function EditProject() {
     const updateProject = async (e) => {
         e?.preventDefault();
 
-        console.log(JSON.stringify(formValues))
         await dispatch(editProject(projectId, userId, name, projectDescription, ownerDescription, genres, image, JSON.stringify(formValues)))
         history.push(`/projects/${projectId}`)
 
@@ -154,7 +170,7 @@ function EditProject() {
 
                     {formValues.map((element, index) => (
                         <div className="individual-create-role" key={index}>
-                            <label className='input-header'>Custom Name</label>
+                            <label className='input-header'>Role Title</label>
                             <textarea className="create-input" type="text" name="customName" value={element.customName || ""} onChange={e => handleChange(index, e)} required/>
                             <label className='input-header'>Type</label>
                             <select className='project-select' type="text" name="type" value={element.type || ""} onChange={e => handleChange(index, e)} required>
