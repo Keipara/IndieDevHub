@@ -56,6 +56,7 @@ const SignUpForm = () => {
               name='username'
               onChange={updateUsername}
               value={username}
+              required
             ></input>
           </div>
           <div className='email-input-container'>
@@ -66,6 +67,7 @@ const SignUpForm = () => {
                 name='email'
                 onChange={updateEmail}
                 value={email}
+                required
               ></input>
           </div>
           <div className='email-input-container'>
@@ -76,6 +78,7 @@ const SignUpForm = () => {
                 name='password'
                 onChange={updatePassword}
                 value={password}
+                required
               ></input>
           </div>
           <button type='submit' className='login-button'>SIGN UP</button>

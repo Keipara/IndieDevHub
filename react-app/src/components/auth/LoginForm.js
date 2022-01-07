@@ -64,6 +64,7 @@ const LoginForm = () => {
               type='text'
               value={email}
               onChange={updateEmail}
+              required
             />
           </div>
           <div className='password-input-container'>
@@ -74,6 +75,7 @@ const LoginForm = () => {
               type='password'
               value={password}
               onChange={updatePassword}
+              required
             />
           </div>
           <button type='submit' className='login-button'>LOGIN</button>
